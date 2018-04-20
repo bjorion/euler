@@ -40,4 +40,22 @@ public class Utils {
 		}
 		return result;
 	}
+
+	/**
+	 * @return True if the given number is palindromic in base 10.
+	 */
+	public static boolean isPalindromic(int val) {
+
+		boolean flag = true;
+		String str = Integer.toString(val);
+		int len = str.length();
+		for (int i = 0; i < (len + 1) / 2; i++) {
+			if (str.charAt(i) != str.charAt(len - i - 1)) {
+				flag = false;
+				break;
+			}
+		}
+
+		return flag;
+	}
 }

@@ -19,44 +19,78 @@ public class Euler004 {
 		long start, delta;
 
 		start = System.nanoTime();
-		res = calc1(999);
+		res = calc1(999, 101);
 		delta = System.nanoTime() - start;
+		Utils.print("Brute force        " + res[1] + "*" + res[2], res[0], delta);
 
-		Utils.print("Brute force - O(n2) - " + res[1] + "*" + res[2], res[0], delta);
+		start = System.nanoTime();
+		res = calc2(999, 101);
+		delta = System.nanoTime() - start;
+		Utils.print("Factor 11          " + res[1] + "*" + res[2], res[0], delta);
+
+		start = System.nanoTime();
+		res = calc3(999, 101);
+		delta = System.nanoTime() - start;
+		Utils.print("Factor 11 improved " + res[1] + "*" + res[2], res[0], delta);
 	}
 
 	/**
 	 * Brute force. O(2).
 	 */
-	static int[] calc1(final int max) {
+	static int[] calc1(final int max, final int min) {
 
 		int res = 0, v1 = 0, v2 = 0;
-		for (int i = max; i > 101; i--) {
-			for (int j = max; j > 101; j--) {
+		for (int i = max; i >= min; i--) {
+			for (int j = max; j >= min; j--) {
 				int c = i * j;
-				if (isPalindromic(c) && c > res) {
+				if (Utils.isPalindromic(c) && c > res) {
+					v1 = i;
+					v2 = j;
+					res = c;
+					// break;
+				}
+			}
+		}
+		return new int[] { res, v1, v2 };
+	}
+
+	/**
+	 * Use the fact that one of the two factor must be a multiple of 11.
+	 */
+	static int[] calc2(final int max, final int min) {
+
+		int res = 0, v1 = 0, v2 = 0;
+		for (int i = max; i >= min; i--) {
+			for (int j = 990; j >= 110; j = j - 11) {
+				int c = i * j;
+				if (Utils.isPalindromic(c) && c > res) {
 					v1 = i;
 					v2 = j;
 					res = c;
 				}
 			}
 		}
-
 		return new int[] { res, v1, v2 };
 	}
 
-	private static boolean isPalindromic(int val) {
+	/**
+	 * As calc2, but with j <= i
+	 */
+	static int[] calc3(final int max, final int min) {
 
-		boolean flag = true;
-		String str = Integer.toString(val);
-		int len = str.length();
-		for (int i = 0; i < (len + 1) / 2; i++) {
-			if (str.charAt(i) != str.charAt(len - i - 1)) {
-				flag = false;
-				break;
+		int res = 0, v1 = 0, v2 = 0;
+		for (int i = max; i >= min; i--) {
+			for (int j = (i / 11) * 11; j >= min; j = j - 11) {
+				int c = i * j;
+				if (Utils.isPalindromic(c) && c > res) {
+					v1 = i;
+					v2 = j;
+					res = c;
+					// break;
+				}
 			}
 		}
-
-		return flag;
+		return new int[] { res, v1, v2 };
 	}
+
 }
