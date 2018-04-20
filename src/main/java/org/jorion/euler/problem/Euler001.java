@@ -3,10 +3,12 @@ package org.jorion.euler.problem;
 import java.util.OptionalInt;
 import java.util.stream.IntStream;
 
+import org.jorion.euler.util.Utils;
+
 /**
- * <p>
  * If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23.
- * Find the sum of all the multiples of 3 or 5 below 1000.</p>
+ * <p>
+ * Find the sum of all the multiples of 3 or 5 below 1000.
  */
 public class Euler001 {
 
@@ -16,39 +18,39 @@ public class Euler001 {
 		final int v1 = 3;
 		final int v2 = 5;
 
-		int sum;
+		int sum; // 1000: 233168
 		long start, delta;
 
 		start = System.nanoTime();
 		sum = calc1(max, v1, v2);
 		delta = System.nanoTime() - start;
-		print("Method 1 - best:O(1)      ", sum, delta);
+		Utils.print("Method 1 - best:O(1)      ", sum, delta);
 
 		start = System.nanoTime();
 		sum = calc2(max, v1, v2);
 		delta = System.nanoTime() - start;
-		print("Method 2 - classic:O(n)   ", sum, delta);
+		Utils.print("Method 2 - classic:O(n)   ", sum, delta);
 
 		start = System.nanoTime();
 		sum = calc3(max, v1, v2);
 		delta = System.nanoTime() - start;
-		print("Method 3 - smart:O(n)     ", sum, delta);
+		Utils.print("Method 3 - smart:O(n)     ", sum, delta);
 
 		start = System.nanoTime();
 		sum = calc4(max, v1, v2);
 		delta = System.nanoTime() - start;
-		print("Method 4 - stream:O(n)    ", sum, delta);
+		Utils.print("Method 4 - stream:O(n)    ", sum, delta);
 
 		start = System.nanoTime();
 		sum = calc5(max, v1, v2);
 		delta = System.nanoTime() - start;
-		print("Method 5 - parallel:O(n)  ", sum, delta);
+		Utils.print("Method 5 - parallel:O(n)  ", sum, delta);
 	}
 
 	/**
 	 * Best solution. O(1).
 	 */
-	public static int calc1(int max, int v1, int v2) {
+	static int calc1(int max, int v1, int v2) {
 
 		max--;
 		int s1 = v1 * sum(max / v1);
@@ -62,7 +64,7 @@ public class Euler001 {
 	/**
 	 * Brute force. O(n).
 	 */
-	public static int calc2(int max, int v1, int v2) {
+	static int calc2(int max, int v1, int v2) {
 
 		int sum = 0;
 		for (int i = 1; i < max; i++) {
@@ -76,7 +78,7 @@ public class Euler001 {
 	/**
 	 * Brute force where we avoid a division. O(n).
 	 */
-	public static int calc3(int max, int v1, int v2) {
+	static int calc3(int max, int v1, int v2) {
 
 		int sum = 0;
 		int s1 = v1, s2 = v2;
@@ -97,7 +99,7 @@ public class Euler001 {
 	/**
 	 * Brute force using Java 8 stream. O(n).
 	 */
-	public static int calc4(int max, int v1, int v2) {
+	static int calc4(int max, int v1, int v2) {
 
 		OptionalInt sum = IntStream.range(1, max).filter(x -> {
 			return x % v1 == 0 || x % v2 == 0;
@@ -109,7 +111,7 @@ public class Euler001 {
 	/**
 	 * Brute force using Java 8 parallel stream. O(n).
 	 */
-	public static int calc5(int max, int v1, int v2) {
+	static int calc5(int max, int v1, int v2) {
 
 		OptionalInt sum = IntStream.range(1, max).parallel().filter(x -> {
 			return x % v1 == 0 || x % v2 == 0;
@@ -126,9 +128,4 @@ public class Euler001 {
 		return (n + 1) * n / 2;
 	}
 
-	private static void print(String msg, int sum, long delta) {
-
-		String time = String.format("%6d µs", delta / 1000);
-		System.out.println(msg + " - Sum: " + sum + " - time: " + time);
-	}
 }
