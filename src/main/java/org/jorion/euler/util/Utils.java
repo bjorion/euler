@@ -5,6 +5,26 @@ package org.jorion.euler.util;
  */
 public class Utils {
 
+	// --- Variables ---
+	private static long start;
+
+	// --- Methods ---
+	/**
+	 * Start the chronometer.
+	 */
+	public static void start() {
+
+		start = System.nanoTime();
+	}
+
+	/**
+	 * @return the chronometer value.
+	 */
+	public static long stop() {
+
+		return System.nanoTime() - start;
+	}
+
 	/**
 	 * Display a formatted string.
 	 *

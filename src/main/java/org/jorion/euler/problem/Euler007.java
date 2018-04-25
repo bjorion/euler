@@ -2,18 +2,23 @@ package org.jorion.euler.problem;
 
 import org.jorion.euler.util.Utils;
 
+/**
+ * By listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see that the 6th prime is 13.
+ * <p>
+ * What is the 10 001st prime number?
+ */
 public class Euler007 {
 
 	public static void main(String[] args) {
 
 		final int max = 10_001;
 
-		long res; // 100 => 25.164.150
-		long start, delta;
+		long res; // 104743
+		long delta;
 
-		start = System.nanoTime();
+		Utils.start();
 		res = calc1(max);
-		delta = System.nanoTime() - start;
+		delta = Utils.stop();
 		Utils.print("Simple", res, delta);
 	}
 
