@@ -56,6 +56,9 @@ public class Euler009 {
 		Utils.print("Built-in list of pythagorian triplets", res, delta);
 	}
 
+	/**
+	 * We cheat a little bit: we "know" the 13 first pythagorian triplets.
+	 */
 	private static long calc1(int max) {
 
 		int index = 0;

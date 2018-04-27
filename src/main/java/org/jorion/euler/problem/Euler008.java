@@ -70,12 +70,17 @@ public class Euler008 {
 		Utils.start();
 		res = calc1(max);
 		delta = Utils.stop();
-		Utils.print("Simple  ", res, delta);
+		Utils.print("Queue       ", res, delta);
 
 		Utils.start();
 		res = calc2(max);
 		delta = Utils.stop();
-		Utils.print("Simple 0", res, delta);
+		Utils.print("Queue 0     ", res, delta);
+
+		Utils.start();
+		res = calc3(max);
+		delta = Utils.stop();
+		Utils.print("Array (best)", res, delta);
 	}
 
 	/**
@@ -84,16 +89,17 @@ public class Euler008 {
 	private static long calc1(int max) {
 
 		long best = 1;
-		Queue<Character> list = new LinkedList<>();
+		Queue<Character> queue = new LinkedList<>();
 
 		for (int i = 0; i < LEN; i++) {
-			list.add(D.charAt(i));
-			if (list.size() > max) {
-				list.remove();
+
+			queue.add(D.charAt(i));
+			if (queue.size() > max) {
+				queue.remove();
 			}
-			if (list.size() == max) {
+			if (queue.size() == max) {
 				long prod = 1;
-				for (Character elem : list) {
+				for (Character elem : queue) {
 					int val = (elem.hashCode() - ASCII_0);
 					if (val == 0) {
 						prod = 0;
@@ -103,7 +109,7 @@ public class Euler008 {
 				}
 				if (prod > best) {
 					best = prod;
-					// if (best == 23514624000L) {	System.out.println(list); }
+					// if (best == 23514624000L) {	System.out.println(queue); }
 				}
 			}
 		}
@@ -111,13 +117,13 @@ public class Euler008 {
 	}
 
 	/**
-	 * Use a Queue, ignore list containing any zero.
+	 * Use a Queue, ignore queue containing any zero.
 	 */
 	private static long calc2(int max) {
 
 		final char zero = '0';
 		long best = 1;
-		Queue<Character> list = new LinkedList<>();
+		Queue<Character> queue = new LinkedList<>();
 		int zeros = 0;
 
 		for (int i = 0; i < LEN; i++) {
@@ -125,16 +131,52 @@ public class Euler008 {
 			if (c == zero) {
 				zeros++;
 			}
-			list.add(c);
-			if (list.size() > max) {
-				if (list.remove() == zero) {
+			queue.add(c);
+			if (queue.size() > max) {
+				if (queue.remove() == zero) {
 					zeros--;
 				}
 			}
-			if (zeros == 0 && list.size() == max) {
+			if (zeros == 0 && queue.size() == max) {
 				long prod = 1;
-				for (Character elem : list) {
+				for (Character elem : queue) {
 					prod *= (elem.hashCode() - ASCII_0);
+				}
+				if (prod > best) {
+					best = prod;
+					// if (best == 23514624000L) {	System.out.println(queue); }
+				}
+			}
+		}
+		return best;
+	}
+
+	/**
+	 * Use an array, ignore queue containing any zero.
+	 */
+	private static long calc3(int max) {
+
+		int[] digits = new int[max];
+		long best = 1;
+
+		int zeros = max;
+		int index = 0;
+		for (int i = 0; i < LEN; i++) {
+			int digit = D.charAt(i) - ASCII_0;
+			if (digits[index] == 0) {
+				zeros--;
+			}
+			if (digit == 0) {
+				zeros++;
+			}
+			digits[index] = digit;
+			index = (index + 1) % max;
+
+			// if there is any zero, no need to compute the product
+			if (zeros == 0) {
+				long prod = 1;
+				for (int elem : digits) {
+					prod *= elem;
 				}
 				if (prod > best) {
 					best = prod;
@@ -144,5 +186,4 @@ public class Euler008 {
 		}
 		return best;
 	}
-
 }

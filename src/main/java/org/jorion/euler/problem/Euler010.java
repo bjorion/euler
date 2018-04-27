@@ -33,7 +33,7 @@ public class Euler010 {
 		Utils.start();
 		res = calc3(max);
 		delta = Utils.stop();
-		Utils.print("Eratosthenes   ", res, delta);
+		Utils.print("Eratos. (Best) ", res, delta);
 
 		Utils.start();
 		res = calc4(10000);
