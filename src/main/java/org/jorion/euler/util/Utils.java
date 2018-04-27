@@ -34,7 +34,18 @@ public class Utils {
 	 */
 	public static void print(String msg, long res, long delta) {
 
-		String time = String.format("%8d µs", delta / 1000);
+		String nanosec = String.format("%8d ns", delta);
+		String time = nanosec;
+		delta /= 1000;
+		if (delta > 0) {
+			String microsec = String.format("%8d µs", delta);
+			time = microsec;
+			delta /= 1000;
+		}
+		if (delta > 0) {
+			String millisec = String.format("%8d ms", delta);
+			time = millisec;
+		}
 		System.out.println(msg + " - Result: " + res + " - time: " + time);
 	}
 
