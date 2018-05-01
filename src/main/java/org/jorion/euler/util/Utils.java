@@ -34,6 +34,11 @@ public class Utils
      */
     public static void print(String msg, long res, long delta)
     {
+        print(msg, Long.toString(res), delta);
+    }
+
+    public static void print(String msg, String res, long delta)
+    {
         String nanosec = String.format("%8d ns", delta);
         String time = nanosec;
         delta /= 1000;
