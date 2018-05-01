@@ -19,31 +19,31 @@ public class Euler001 {
 		final int v2 = 5;
 
 		int sum; // 1000: 233168
-		long start, delta;
+		long delta;
 
-		start = System.nanoTime();
+		Utils.start();
 		sum = calc1(max, v1, v2);
-		delta = System.nanoTime() - start;
+		delta = Utils.stop();
 		Utils.print("Method 1 - best:O(1)      ", sum, delta);
 
-		start = System.nanoTime();
+		Utils.start();
 		sum = calc2(max, v1, v2);
-		delta = System.nanoTime() - start;
+		delta = Utils.stop();
 		Utils.print("Method 2 - classic:O(n)   ", sum, delta);
 
-		start = System.nanoTime();
+		Utils.start();
 		sum = calc3(max, v1, v2);
-		delta = System.nanoTime() - start;
+		delta = Utils.stop();
 		Utils.print("Method 3 - smart:O(n)     ", sum, delta);
 
-		start = System.nanoTime();
+		Utils.start();
 		sum = calc4(max, v1, v2);
-		delta = System.nanoTime() - start;
+		delta = Utils.stop();
 		Utils.print("Method 4 - stream:O(n)    ", sum, delta);
 
-		start = System.nanoTime();
+		Utils.start();
 		sum = calc5(max, v1, v2);
-		delta = System.nanoTime() - start;
+		delta = Utils.stop();
 		Utils.print("Method 5 - parallel:O(n)  ", sum, delta);
 	}
 
