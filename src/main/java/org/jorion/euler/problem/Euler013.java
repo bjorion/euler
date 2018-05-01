@@ -120,12 +120,12 @@ public class Euler013
         long delta;
 
         Utils.start();
-        res = calc1(N.length);
+        res = calc1(N);
         delta = Utils.stop();
         Utils.print("BigInteger ", res, delta);
-        
+
         Utils.start();
-        res = calc2(N.length);
+        res = calc2(N);
         delta = Utils.stop();
         Utils.print("11 digits  ", res, delta);
     }
@@ -133,26 +133,30 @@ public class Euler013
     /**
      * Use BigInteger.
      */
-    private static String calc1(int max)
+    private static String calc1(String[] n)
     {
         BigInteger sum = new BigInteger("0");
-        for (int i = 0; i < max; i++) {
-            BigInteger bi = new BigInteger(N[i]);
+        for (int i = 0; i < n.length; i++) {
+            BigInteger bi = new BigInteger(n[i]);
             sum = sum.add(bi);
         }
-        // System.out.println(sum.toString().length());
+        // System.out.println(sum.toString());
         return sum.toString().substring(0, 10);
     }
 
     /**
      * Limit to the first 11 digits of each number.
+     * 
+     * Note: I don't agree with the mathematical hypothesis below (according to which only the 11th first numbers are
+     * relevant).s
      */
-    private static String calc2(int max)
+    private static String calc2(String[] n)
     {
         long sum = 0;
-        for (int i = 0; i < max; i++) {
-            sum += Long.parseLong(N[i].substring(0, 11));
+        for (int i = 0; i < n.length; i++) {
+            sum += Long.parseLong(n[i].substring(0, 11));
         }
-        return Long.toString(sum).substring(0,  10);
+        // System.out.println(Long.toString(sum));
+        return Long.toString(sum).substring(0, 10);
     }
 }
