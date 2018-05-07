@@ -54,4 +54,12 @@ public class UtilsTest {
 		}
 	}
 
+	@Test
+	public void testIsPalindromic() {
+
+		assertTrue(Utils.isPalindromic(1));
+		assertTrue(Utils.isPalindromic(11));
+		assertFalse(Utils.isPalindromic(12));
+	}
+
 }
