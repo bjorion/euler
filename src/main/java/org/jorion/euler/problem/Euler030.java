@@ -69,7 +69,7 @@ public class Euler030
     }
     
     /**
-     * Use moduleo
+     * Use modulo (faster).
      */
     private static long calc2(int power)
     {
