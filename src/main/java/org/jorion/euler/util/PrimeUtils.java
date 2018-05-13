@@ -77,18 +77,21 @@ public class PrimeUtils
     /**
      * Use the Sieve of Eratosthenes to find all primes between 1 and n.
      * 
+     * @param n the upper limit for the sieve
      * @return an array of booleans, true for a prime
      */
     public static boolean[] isPrimeSoE(int n)
     {
         // initially assume all integers are prime
         boolean[] isPrimes = new boolean[n + 1];
-        for (int i = 2; i <= n; i++) {
-            isPrimes[i] = true;
+        isPrimes[2] = true;
+        for (int i = 3; i <= n; i++) {
+            // for even numbers: false; for odd numbers: true
+            isPrimes[i] = ((i & 0b1) == 1);
         }
 
         // mark non-primes <= n using Sieve of Eratosthenes
-        for (int factor = 2; factor * factor <= n; factor++) {
+        for (int factor = 3; factor * factor <= n; factor++) {
 
             // if factor is prime, then mark multiples of factor as nonprime
             // suffices to consider mutiples factor, factor+1, ..., n/factor
@@ -102,7 +105,7 @@ public class PrimeUtils
     }
 
     /**
-     * Given an array of booleans (provided for {@link #isPrimeSoE(int)}, returns the index of the next prime in the
+     * Given an array of booleans (provided by {@link #isPrimeSoE(int)}), returns the index of the next prime in the
      * array.
      * 
      * @param arr an array of booleans
