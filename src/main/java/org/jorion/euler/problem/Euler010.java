@@ -3,6 +3,7 @@ package org.jorion.euler.problem;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jorion.euler.util.PrimeUtils;
 import org.jorion.euler.util.Utils;
 
 /**
@@ -45,7 +46,7 @@ public class Euler010 {
 
 		long sum = 2;
 		for (int i = 3; i < max; i = i + 2) {
-			if (Utils.isPrime(i)) {
+			if (PrimeUtils.isPrime(i)) {
 				sum += i;
 			}
 		}
@@ -56,7 +57,7 @@ public class Euler010 {
 
 		long sum = 2;
 		for (int i = 3; i < max; i = i + 2) {
-			if (Utils.isPrime6(i)) {
+			if (PrimeUtils.isPrime6(i)) {
 				sum += i;
 			}
 		}
@@ -65,7 +66,7 @@ public class Euler010 {
 
 	private static long calc3(int max) {
 
-		boolean res[] = Utils.isPrimeSoE(max);
+		boolean res[] = PrimeUtils.isPrimeSoE(max);
 		long sum = 0;
 		for (int i = 0; i < res.length; i++) {
 			if (res[i]) {

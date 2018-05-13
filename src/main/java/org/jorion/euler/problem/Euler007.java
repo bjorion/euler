@@ -1,5 +1,6 @@
 package org.jorion.euler.problem;
 
+import org.jorion.euler.util.PrimeUtils;
 import org.jorion.euler.util.Utils;
 
 /**
@@ -28,7 +29,7 @@ public class Euler007
         long i = 3;
         int count = 1;
         while (count < max) {
-            if (Utils.isPrime(i)) {
+            if (PrimeUtils.isPrime(i)) {
                 res = i;
                 count++;
             }

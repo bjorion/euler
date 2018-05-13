@@ -1,5 +1,6 @@
 package org.jorion.euler.problem;
 
+import org.jorion.euler.util.PrimeUtils;
 import org.jorion.euler.util.Utils;
 
 /**
@@ -52,7 +53,7 @@ public class Euler003 {
 			}
 			while (true) {
 				prime += 2;
-				if (Utils.isPrime(prime)) {
+				if (PrimeUtils.isPrime(prime)) {
 					break;
 				}
 			}
