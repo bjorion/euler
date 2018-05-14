@@ -80,21 +80,10 @@ public class Utils
 
     /**
      * Formula: C<sup>p</sup><sub>n</sub> = n! / (p! * (n - p)!)
-     * 
-     * <pre>
-     * denombrement_combinaisons( p , n ) {
-     * 	si (p = n) retourner 1;
-     * 	si (p > n/2) p = n-p;
-     * 	res = n-p+1;
-     * 	pour i = 2 par 1 tant que i < = p
-     * 	res = res * (n-p+i)/i;
-     * 	fin pour
-     * 	retourner res;
-     * </pre>
      */
     public static long combinationCPN(int p, int n)
     {
-        if (p == n) {
+        if (p == 0 || p == n) {
             return 1;
         }
         if (p > n / 2) {
