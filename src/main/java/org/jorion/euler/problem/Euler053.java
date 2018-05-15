@@ -26,11 +26,16 @@ public class Euler053 {
 		Utils.start();
 		res = calc1(max, lim);
 		delta = Utils.stop();
-		Utils.print("Simple   ", res, delta);
+		Utils.print("Simple     ", res, delta);
+
+		Utils.start();
+		res = calc2(max, lim);
+		delta = Utils.stop();
+		Utils.print("Advanced   ", res, delta);
 	}
 
 	/**
-	 * Compute directly Cpn.
+	 * Compute independently each Cpn.
 	 */
 	private static long calc1(int max, int lim) {
 
@@ -44,7 +49,7 @@ public class Euler053 {
 			for (int p = start; p <= middle; p++) {
 				long cpn = Utils.combinationCPN(p, n);
 				// iter++;
-				if (cpn > lim) {
+				if (cpn >= lim) {
 					int val = n - 2 * p + 1;
 					count += val;
 					start = p - 2;
@@ -56,4 +61,29 @@ public class Euler053 {
 		return count;
 	}
 
+	/**
+	 * Compute Cpn based on Cp(n-1).
+	 */
+	private static long calc2(int max, int lim) {
+
+		int[] c = new int[max];
+		int count = 0;
+		c[0] = c[1] = 1;
+
+		for (int n = 2; n <= max; n++) {
+			boolean even = ((n & 0b1) == 0);
+			int middle = n / 2;
+			for (int p = middle; p >= 1; p--) {
+				c[p] = c[p] + c[p - 1];
+				if (c[p] >= lim) {
+					c[p] = lim;
+					count = (p == middle && even) ? count + 1 : count + 2;
+				}
+			}
+			if (!even) {
+				c[middle + 1] = c[middle];
+			}
+		}
+		return count;
+	}
 }
