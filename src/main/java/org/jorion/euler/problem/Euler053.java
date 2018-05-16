@@ -1,5 +1,6 @@
 package org.jorion.euler.problem;
 
+import org.jorion.euler.util.MathUtils;
 import org.jorion.euler.util.Utils;
 
 /**
@@ -47,7 +48,7 @@ public class Euler053 {
 		for (int n = min; n <= max; n++) {
 			int middle = n / 2;
 			for (int p = start; p <= middle; p++) {
-				long cpn = Utils.combinationCPN(p, n);
+				long cpn = MathUtils.cpn(p, n);
 				// iter++;
 				if (cpn >= lim) {
 					int val = n - 2 * p + 1;

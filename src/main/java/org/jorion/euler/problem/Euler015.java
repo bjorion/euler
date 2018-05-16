@@ -1,5 +1,6 @@
 package org.jorion.euler.problem;
 
+import org.jorion.euler.util.MathUtils;
 import org.jorion.euler.util.Utils;
 
 /**
@@ -27,7 +28,7 @@ public class Euler015 {
 	 */
 	private static long calc1(int max) {
 
-		return Utils.combinationCPN(max, max * 2);
+		return MathUtils.cpn(max, max * 2);
 	}
 
 }
