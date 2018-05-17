@@ -23,7 +23,7 @@ import org.jorion.euler.util.Utils;
  */
 public class Euler022
 {
-    // --- Variables ---
+    // --- Constants ---
     private static final int ASCII_0 = 64;
 
     // --- Methods ---
@@ -49,7 +49,6 @@ public class Euler022
         res = calc2(line);
         delta = Utils.stop();
         Utils.print("Arrays  ", res, delta);
-
     }
 
     private static long calc1(String line)

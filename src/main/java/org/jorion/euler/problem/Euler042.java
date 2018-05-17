@@ -25,7 +25,7 @@ import org.jorion.euler.util.Utils;
  */
 public class Euler042
 {
-    // --- Variables ---
+    // --- Constants ---
     private static final int ASCII_0 = 64;
 
     // --- Methods ---
