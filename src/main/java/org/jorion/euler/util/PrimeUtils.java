@@ -103,21 +103,4 @@ public class PrimeUtils {
 		return isPrimes;
 	}
 
-	/**
-	 * Given an array of booleans (provided by {@link #isPrimeSoE(int)}), returns the index of the next prime in the
-	 * array.
-	 *
-	 * @param arr an array of booleans
-	 * @param index the current index
-	 * @return the index of the next prime (greater than the given index)
-	 */
-	public static int nextPrime(boolean[] arr, int index) {
-		while (index < arr.length) {
-			index++;
-			if (arr[index]) {
-				break;
-			}
-		}
-		return index;
-	}
 }

@@ -1,5 +1,6 @@
 package org.jorion.euler.problem;
 
+import org.jorion.euler.util.MathUtils;
 import org.jorion.euler.util.PrimeUtils;
 import org.jorion.euler.util.Utils;
 
@@ -97,7 +98,7 @@ public class Euler050 {
 	}
 
 	/**
-	 * Around 50s.
+	 * Around 50s. So bad algorithm I don't want to use it anymore.
 	 */
 	@SuppressWarnings("unused")
 	private static long calc1(int max) {
@@ -118,7 +119,7 @@ public class Euler050 {
 			int startCount = 0;
 			int smallestIndex = 2;
 			for (int i = 0; i < len; i++) {
-				cur = PrimeUtils.nextPrime(arr, cur);
+				cur = MathUtils.nextTrue(arr, cur);
 				sum += cur;
 			}
 			while (true) {
@@ -137,10 +138,10 @@ public class Euler050 {
 				}
 				// remove smallest prime
 				sum -= smallestIndex;
-				smallestIndex = PrimeUtils.nextPrime(arr, smallestIndex);
+				smallestIndex = MathUtils.nextTrue(arr, smallestIndex);
 
 				// add new prime
-				cur = PrimeUtils.nextPrime(arr, cur);
+				cur = MathUtils.nextTrue(arr, cur);
 				sum += cur;
 			}
 		}

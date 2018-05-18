@@ -10,42 +10,42 @@ import org.jorion.euler.util.Utils;
  * <p>
  * Find the sum of the digits in the number 100!
  */
-public class Euler020
-{
-    public static void main(String[] args)
-    {
-        final int max = 50;
-        long res;
-        long delta;
+// TODO
+public class Euler020 {
 
-        Utils.start();
-        res = addDigits(calc1(max));
-        delta = Utils.stop();
-        Utils.print("Brute force", res, delta);
-    }
+	// --- Methods ---
+	public static void main(String[] args) {
+		final int max = 50;
+		long res;
+		long delta;
 
-    private static long calc1(int max)
-    {
-        long p = 1;
-        for (int i= 2; i <= max; i++) {
-            p *= i;
-            while (p % 10 == 0) {
-                p /= 10;
-                System.out.println("reduction - p = " + p + ", i = " + i);
-            }
-        }
-        System.out.println(p);
-        return p;
-    }
-    
-    private static long addDigits(long n) {
-        
-        System.out.println("n = " + n);
-        long res = 0;
-        while (n > 0) {
-            res += (n % 10);
-            n /= 10;
-        }
-        return res;
-    }
+		Utils.start();
+		res = addDigits(calc1(max));
+		delta = Utils.stop();
+		Utils.print("Brute force", res, delta);
+	}
+
+	private static long calc1(int max) {
+		long p = 1;
+		for (int i = 2; i <= max; i++) {
+			p *= i;
+			while (p % 10 == 0) {
+				p /= 10;
+				System.out.println("reduction - p = " + p + ", i = " + i);
+			}
+		}
+		System.out.println(p);
+		return p;
+	}
+
+	private static long addDigits(long n) {
+
+		System.out.println("n = " + n);
+		long res = 0;
+		while (n > 0) {
+			res += (n % 10);
+			n /= 10;
+		}
+		return res;
+	}
 }
