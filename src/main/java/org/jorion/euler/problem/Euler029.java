@@ -164,6 +164,7 @@ public class Euler029
             int gcd = 0;
             for (int prime : factors.keySet()) {
                 int exp = factors.get(prime);
+                // note: I cannot guarantee this will work in all cases
                 gcd = (gcd == 0) ? exp : MathUtils.gcd(gcd, exp);
             }
 
@@ -185,7 +186,7 @@ public class Euler029
             }
             for (int b = 2; b <= max; b++) {
                 int val = gcd * b;
-                // if the value already exist in the list, remove it from the count
+                // if the value already exists in the list, remove it from the count
                 if (list.contains(val)) {
                     // print("---", a, b, base, val);
                     sum--;
