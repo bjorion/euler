@@ -4,6 +4,7 @@ import java.util.OptionalInt;
 import java.util.stream.IntStream;
 
 import org.jorion.euler.util.Utils;
+import org.jorion.euler.util.WordUtils;
 
 /**
  * The decimal number, 585 = 1001001001 (binary), is palindromic in both bases.
@@ -53,9 +54,9 @@ public class Euler036 {
 		long res = 0;
 		// even number are no palindrom in binary
 		for (int i = 1; i < max; i = i + 2) {
-			if (Utils.isPalindromic(i)) {
+			if (WordUtils.isPalindromic(i)) {
 				String bin = Integer.toBinaryString(i);
-				if (Utils.isPalindromic(bin)) {
+				if (WordUtils.isPalindromic(bin)) {
 					// System.out.println("i: " + i + ", " + bin);
 					res += i;
 					count++;
@@ -68,16 +69,16 @@ public class Euler036 {
 
 	private static long calc2(int max) {
 
-		OptionalInt sum = IntStream.range(1, max).filter(i -> i % 2 == 1).filter(i -> Utils.isPalindromic(i)).filter(i -> {
-			return Utils.isPalindromic(Integer.toBinaryString(i));
+		OptionalInt sum = IntStream.range(1, max).filter(i -> i % 2 == 1).filter(i -> WordUtils.isPalindromic(i)).filter(i -> {
+			return WordUtils.isPalindromic(Integer.toBinaryString(i));
 		}).reduce(Integer::sum);
 		return sum.orElse(0);
 	}
 
 	private static long calc3(int max) {
 
-		OptionalInt sum = IntStream.range(1, max).parallel().filter(i -> i % 2 == 1).filter(i -> Utils.isPalindromic(i)).filter(i -> {
-			return Utils.isPalindromic(Integer.toBinaryString(i));
+		OptionalInt sum = IntStream.range(1, max).parallel().filter(i -> i % 2 == 1).filter(i -> WordUtils.isPalindromic(i)).filter(i -> {
+			return WordUtils.isPalindromic(Integer.toBinaryString(i));
 		}).reduce(Integer::sum);
 		return sum.orElse(0);
 	}
@@ -116,7 +117,7 @@ public class Euler036 {
 						if (n == 6) {
 							val = 11 * (9091 * a + 910 * b + 100 * c);
 						}
-						if (Utils.isPalindromic(Integer.toBinaryString(val))) {
+						if (WordUtils.isPalindromic(Integer.toBinaryString(val))) {
 							res += val;
 						}
 						if (n < 5) {

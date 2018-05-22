@@ -1,6 +1,7 @@
 package org.jorion.euler.problem;
 
 import org.jorion.euler.util.Utils;
+import org.jorion.euler.util.WordUtils;
 
 /**
  * A palindromic number reads the same both ways. The largest palindrome made from the product of two 2-digit numbers is 9009 = 91 × 99.
@@ -43,7 +44,7 @@ public class Euler004 {
 		for (int i = max; i >= min; i--) {
 			for (int j = max; j >= min; j--) {
 				int c = i * j;
-				if (Utils.isPalindromic(c) && c > res) {
+				if (WordUtils.isPalindromic(c) && c > res) {
 					v1 = i;
 					v2 = j;
 					res = c;
@@ -63,7 +64,7 @@ public class Euler004 {
 		for (int i = max; i >= min; i--) {
 			for (int j = 990; j >= 110; j = j - 11) {
 				int c = i * j;
-				if (Utils.isPalindromic(c) && c > res) {
+				if (WordUtils.isPalindromic(c) && c > res) {
 					v1 = i;
 					v2 = j;
 					res = c;
@@ -82,7 +83,7 @@ public class Euler004 {
 		for (int i = max; i >= min; i--) {
 			for (int j = (i / 11) * 11; j >= min; j = j - 11) {
 				int c = i * j;
-				if (Utils.isPalindromic(c) && c > res) {
+				if (WordUtils.isPalindromic(c) && c > res) {
 					v1 = i;
 					v2 = j;
 					res = c;
