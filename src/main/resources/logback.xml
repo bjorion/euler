@@ -1,0 +1,26 @@
+<configuration debug="false" scan="false" packagingData="false">
+
+	<!-- Appenders -->
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<!-- %d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n -->
+			<!-- 11:42:35.669 [main] INFO org.jorion.euler.problem.Euler000 - <msg> -->
+			<pattern>%d{mm:ss.SSS} %-5level %logger{36} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%X{main} - %m%n</pattern>
+		</encoder>
+	</appender>
+
+	<!-- Loggers -->
+	<logger name="org.jorion.euler" level="info" />
+
+	<!-- Root -->
+	<root level="debug">
+		<appender-ref ref="STDOUT" />
+	</root>
+
+</configuration>
