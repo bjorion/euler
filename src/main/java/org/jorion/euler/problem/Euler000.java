@@ -23,6 +23,7 @@ public class Euler000 {
 
 		LOG.debug("print some debug");
 		LOG.info("print some info");
+		LOG.warn("print some warn");
 		LOG.error("print some error");
 	}
 }

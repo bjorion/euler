@@ -16,7 +16,16 @@
 	</appender>
 
 	<!-- Loggers -->
-	<logger name="org.jorion.euler" level="info" />
+	<logger name="org.jorion.euler" level="error" />
+
+	<if condition='p("bjo").contains("torino")'>
+		<then>
+			<logger name="org.jorion.euler.problem" level="info" />
+		</then>
+		<else>
+			<logger name="org.jorion.euler.problem" level="warn" />
+		</else>
+	</if>
 
 	<!-- Root -->
 	<root level="debug">
