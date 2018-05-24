@@ -90,10 +90,11 @@ public class Euler035 {
 				boolean ok = true;
 				int p = n;
 				int len = ((int) Math.log10(n)) + 1;
+				int c = (int) Math.pow(10, len - 1);
 				for (int i = 0; i < len - 1; i++) {
 					int digit = p % 10;
 					p = p / 10;
-					p = (digit * ((int) Math.pow(10, len - 1))) + p;
+					p = (digit * c) + p;
 					if (p < n) {
 						ok = false;
 						break;
@@ -161,6 +162,10 @@ public class Euler035 {
 
 	/**
 	 * Use Sieve Of Eratosthenes.
+	 * <ul>
+	 * <li>Advantage: faster (around 10x) than the Prime6 version
+	 * <li>Disadvante: requires more memory (2 Mega) to store the list of primes up to 1.000.000.
+	 * </ul>
 	 */
 	private static long calc3(int max) {
 
@@ -171,10 +176,11 @@ public class Euler035 {
 				boolean ok = true;
 				int p = n;
 				int len = ((int) Math.log10(n)) + 1;
+				int c = (int) Math.pow(10, len - 1);
 				for (int i = 0; i < len - 1; i++) {
 					int digit = p % 10;
 					p = p / 10;
-					p = (digit * ((int) Math.pow(10, len - 1))) + p;
+					p = (digit * c) + p;
 					if (p < n) {
 						ok = false;
 						break;
