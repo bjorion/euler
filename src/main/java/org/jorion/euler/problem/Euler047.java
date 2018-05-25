@@ -1,6 +1,6 @@
 package org.jorion.euler.problem;
 
-import org.jorion.euler.util.MathUtils;
+import org.jorion.euler.util.PrimeUtils;
 import org.jorion.euler.util.Utils;
 
 /**
@@ -41,7 +41,7 @@ public class Euler047 {
 		boolean found = false;
 		int count = 0;
 		while (!found) {
-			int size = MathUtils.findPrimeFactors(n).size();
+			int size = PrimeUtils.findPrimeFactors(n).size();
 			n++;
 			if (size < max) {
 				count = 0;
