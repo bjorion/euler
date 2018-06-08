@@ -12,7 +12,6 @@ import org.jorion.euler.util.Utils;
  * <p>
  * Find the sum of the digits in the number 100!
  */
-// TODO
 public class Euler020 {
 
 	// --- Constants ---
