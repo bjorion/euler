@@ -121,6 +121,7 @@ public class Euler059 {
 		return dst;
 	}
 
+	@SuppressWarnings("unused")
 	private static String toString(int[] chrs) {
 
 		StringBuilder sb = new StringBuilder();
