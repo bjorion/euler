@@ -1,5 +1,10 @@
 package org.jorion.euler.util;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.net.URL;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -57,6 +62,22 @@ public class Utils {
 		}
 		// System.out.println(msg + " - Result: " + res + " - time: " + time);
 		LOG.info(msg + " - Result: " + res + " - time: " + time);
+	}
+
+	/**
+	 * Read a single-line file.
+	 *
+	 * @param filename the filename
+	 * @return the line
+	 */
+	public static String readLine(String filename) throws Exception {
+		String line = null;
+		URL url = Utils.class.getClassLoader().getResource(filename);
+		File file = new File(url.getFile());
+		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+			line = br.readLine();
+		}
+		return line;
 	}
 
 }
