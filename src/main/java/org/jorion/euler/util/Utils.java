@@ -24,8 +24,13 @@ public class Utils {
 	 * Start the chronometer.
 	 */
 	public static void start() {
+
+		// make sure the classes below are loaded by the JVM
+		// (we don't want the loading time to be included in the chronometer)
 		MathUtils.wakeUp();
 		PrimeUtils.wakeUp();
+		WordUtils.wakeUp();
+
 		start = System.nanoTime();
 	}
 

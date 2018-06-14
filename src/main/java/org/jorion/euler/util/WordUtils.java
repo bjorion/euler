@@ -3,6 +3,9 @@ package org.jorion.euler.util;
 public class WordUtils {
 
 	// --- Methods ---
+	protected static void wakeUp() {
+	}
+
 	/**
 	 * @param val the number to reverse
 	 * @return the reversed given number
