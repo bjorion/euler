@@ -25,13 +25,54 @@ public class Euler031 {
 		Utils.start();
 		res = calc1(max);
 		delta = Utils.stop();
-		Utils.print("Algorithm ", res, delta);
+		Utils.print("Brute Force (Simple) ", res, delta);
+
+		Utils.start();
+		res = calc2(max);
+		delta = Utils.stop();
+		Utils.print("BF with Recursion    ", res, delta);
+	}
+
+	/**
+	 * Brute force using recursion. Works facter (not sure why).
+	 */
+	private static int calc2(int max) {
+
+		int[] coins = { 200, 100, 50, 20, 10, 5, 2, 1 };
+		int[] maxs = new int[coins.length];
+		for (int i = 0; i < coins.length; i++) {
+			maxs[i] = max / coins[i];
+		}
+
+		return calc2sub(coins, maxs, max, 0, 0, 0);
+	}
+
+	private static int calc2sub(final int[] coins, final int[] maxs, final int max, final int sum, final int index, final int count) {
+
+		int count2 = count;
+		for (int i = 0; i <= maxs[index]; i++) {
+			int sumI = sum + i * coins[index];
+			// goal reached: stop recursion here
+			if (sumI == max) {
+				count2++;
+				break;
+			}
+			// above the goal: stop recursion here
+			else if (sumI > max) {
+				break;
+			}
+			// try next (smaller) coin
+			else if (index + 1 < maxs.length) {
+				count2 = calc2sub(coins, maxs, max, sumI, index + 1, count2);
+			}
+		}
+		return count2;
 	}
 
 	/**
 	 * Brute force.
 	 */
-	private static long calc1(int max) {
+	private static int calc1(int max) {
 
 		int[] coins = { 200, 100, 50, 20, 10, 5, 2, 1 };
 		int[] maxs = new int[coins.length];
@@ -98,7 +139,6 @@ public class Euler031 {
 				}
 			}
 		}
-
 		return count;
 	}
 
