@@ -48,6 +48,24 @@ public class MathUtils
     }
 
     /**
+     * Simplify the given fraction (num/den).
+     * <p>
+     * Example: "2 / 10" will return "1 / 5" 
+     * 
+     * @param num the numerator
+     * @param den the denumerator
+     * @return the fraction simplified (first elem is num, second elem is denum)
+     */
+    public static int[] simplify(int num, int den)
+    {
+        int gcd = gcd(num, den);
+        num = num / gcd;
+        den = den / gcd;
+        int[] res = { num, den };
+        return res;
+    }
+
+    /**
      * Given an array of booleans, returns the index of the next "true" in the array.
      *
      * @param arr an array of booleans
