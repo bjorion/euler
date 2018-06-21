@@ -98,4 +98,26 @@ public class WordUtils
         return sb.toString();
     }
 
+    /**
+     * Swap two characters inside a given String.
+     * 
+     * @param a the string to act upon
+     * @param i the index of the first character
+     * @param j the index of the second character
+     * @return the string with the two given characters swapped
+     */
+    public static String swap(String a, int i, int j)
+    {
+        String res = a;
+        if (i != j) {
+            char temp;
+            char[] charArray = a.toCharArray();
+            temp = charArray[i];
+            charArray[i] = charArray[j];
+            charArray[j] = temp;
+            res = String.valueOf(charArray);
+        }
+        return res;
+    }
+
 }
