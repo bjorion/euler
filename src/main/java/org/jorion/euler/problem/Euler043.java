@@ -24,9 +24,13 @@ import org.jorion.euler.util.WordUtils;
 public class Euler043
 {
     // --- Constants ---
-    private static final int[] DIV = { 1, 2, 3, 5, 7, 11, 13, 17 };
-    
+    private static final int[] DIV = { 2, 3, 5, 7, 11, 13, 17 };
+
+    private static final char[] DIGITS = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+
     private static final int LEN = 3;
+
+    private static long sum = 0;
 
     // --- Methods ---
     public static void main(String[] args)
@@ -37,9 +41,61 @@ public class Euler043
         Utils.start();
         res = calc1();
         delta = Utils.stop();
-        Utils.print("Simple ", res, delta);
+        Utils.print("Complete Permutations ", res, delta);
+
+        Utils.start();
+        res = calc2();
+        delta = Utils.stop();
+        Utils.print("Advanced (Best)       ", res, delta);
     }
 
+    /**
+     * https://projecteuler.net/thread=43;page=9
+     */
+    private static long calc2()
+    {
+        sum = 0;
+        int high = DIV[DIV.length - 1];
+        int total = 1000 / high;
+        for (int i = 1; i <= total; i++) {
+            int product = i * high;
+            String productStr = (product < 100) ? "0" + product : product + "";
+            if (!WordUtils.isUnique(productStr)) {
+                continue;
+            }
+            checkRightNumber(productStr, 6);
+        }
+        return sum;
+    }
+
+    public static void checkRightNumber(String productStr, int actor)
+    {
+        if (0 == actor) {
+            // find first digit: the one not present yet
+            for (int i = 0; i < DIGITS.length; i++) {
+                if (productStr.indexOf(DIGITS[i]) < 0) {
+                    productStr = DIGITS[i] + productStr;
+                    break;
+                }
+            }
+            // System.out.println("adding: " + productStr);
+            sum += Long.valueOf(productStr);
+            return;
+        }
+        for (int i = 0; i < DIGITS.length; i++) {
+            if (productStr.indexOf(DIGITS[i]) < 0) {
+                String productNewStr = DIGITS[i] + productStr;
+                if (Integer.valueOf(productNewStr.substring(0, LEN)) % DIV[actor - 1] == 0) {
+                    checkRightNumber(productNewStr, actor - 1);
+                }
+            }
+        }
+        return;
+    }
+
+    /**
+     * Generate all possible permutations, then check for divisibility.
+     */
     private static long calc1()
     {
         String str = "0123456789";
@@ -73,9 +129,9 @@ public class Euler043
     {
         boolean ok = true;
         long sum = 0;
-        for (int i = 1; i < DIV.length; i++) {
+        for (int i = 1; i <= DIV.length; i++) {
             int val = Integer.parseInt(str.substring(i, i + LEN));
-            if (val % DIV[i] != 0) {
+            if (val % DIV[i - 1] != 0) {
                 ok = false;
                 break;
             }

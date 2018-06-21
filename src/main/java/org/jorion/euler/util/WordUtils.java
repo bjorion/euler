@@ -120,4 +120,26 @@ public class WordUtils
         return res;
     }
 
+    /**
+     * Check if every character in the given string appears only once.
+     * 
+     * @param str the string to check
+     * @return true if every character appears only once.
+     */
+    public static boolean isUnique(String str)
+    {
+        boolean ok = true;
+        char[] chars = str.toCharArray();
+        for (int i = 0; ok && i < chars.length; i++) {
+            char ch = chars[i];
+            for (int j = i + 1; j < chars.length; j++) {
+                if (chars[j] == ch) {
+                    ok = false;
+                    break;
+                }
+            }
+        }
+        return ok;
+    }
+
 }
