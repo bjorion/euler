@@ -3,6 +3,9 @@ package org.jorion.euler.util;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Set of utility methods related to prime numbers. Use {@link MathUtils}.
+ */
 public class PrimeUtils
 {
     // --- Methods ---
@@ -156,7 +159,7 @@ public class PrimeUtils
                 map.put(div, count);
             }
             if (!stopPrime) {
-                int next = MathUtils.nextTrue(primes, div);
+                int next = Utils.nextTrue(primes, div);
                 if (next > 0) {
                     div = next;
                 }

@@ -1,6 +1,5 @@
 package org.jorion.euler.problem;
 
-import org.jorion.euler.util.MathUtils;
 import org.jorion.euler.util.PrimeUtils;
 import org.jorion.euler.util.Utils;
 
@@ -119,7 +118,7 @@ public class Euler050 {
 			int startCount = 0;
 			int smallestIndex = 2;
 			for (int i = 0; i < len; i++) {
-				cur = MathUtils.nextTrue(arr, cur);
+				cur = Utils.nextTrue(arr, cur);
 				sum += cur;
 			}
 			while (true) {
@@ -138,10 +137,10 @@ public class Euler050 {
 				}
 				// remove smallest prime
 				sum -= smallestIndex;
-				smallestIndex = MathUtils.nextTrue(arr, smallestIndex);
+				smallestIndex = Utils.nextTrue(arr, smallestIndex);
 
 				// add new prime
-				cur = MathUtils.nextTrue(arr, cur);
+				cur = Utils.nextTrue(arr, cur);
 				sum += cur;
 			}
 		}

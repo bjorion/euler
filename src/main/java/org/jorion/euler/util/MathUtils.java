@@ -66,25 +66,6 @@ public class MathUtils
     }
 
     /**
-     * Given an array of booleans, returns the index of the next "true" in the array.
-     *
-     * @param arr an array of booleans
-     * @param index the current index
-     * @return the index of the next true (greater than the given index), or -1 if it does not exist
-     */
-    public static int nextTrue(boolean[] arr, int index)
-    {
-        int len = arr.length;
-        while (index < len) {
-            index++;
-            if (arr[index]) {
-                break;
-            }
-        }
-        return (index < len) ? index : -1;
-    }
-
-    /**
      * A n-digit number is pandigital if it makes use of all the digits 1 to n exactly once.
      * <p>
      * Example: 2143 is a 4-digit pandigital.
@@ -121,8 +102,27 @@ public class MathUtils
                 }
             }
         }
-        
         return pandigital;
     }
 
+    public static boolean isUnique(int n, boolean zeroAllowed)
+    {
+        boolean unique = true;
+        int[] digits = new int[10];
+        if (!zeroAllowed) {
+            digits[0] = 1;
+        }
+        while (n > 0) {
+            int mod = n % 10;
+            if (digits[mod] > 0) {
+                unique = false;
+                break;
+            }
+            else {
+                digits[mod] = 1;
+            }
+            n /= 10;
+        }
+        return unique;
+    }
 }
