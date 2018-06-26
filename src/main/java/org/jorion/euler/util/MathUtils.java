@@ -84,4 +84,45 @@ public class MathUtils
         return (index < len) ? index : -1;
     }
 
+    /**
+     * A n-digit number is pandigital if it makes use of all the digits 1 to n exactly once.
+     * <p>
+     * Example: 2143 is a 4-digit pandigital.
+     * <p>
+     * This definition excludes "0".
+     * 
+     * @param n the number to test
+     * @return true if n is pandigital.
+     */
+    public static boolean isPandigital(int n)
+    {
+        boolean pandigital = true;
+        int[] digits = new int[10];
+        digits[0] = 1;
+        
+        int count = 0;
+        while (n > 0) {
+            int mod = n % 10;
+            if (digits[mod] > 0) {
+                pandigital = false;
+                break;
+            }
+            else {
+                digits[mod] = 1;
+                count++;
+            }
+            n /= 10;
+        }
+        if (pandigital) {
+            for (int i = 1; i <= count; i++) {
+                if (digits[i] == 0) {
+                    pandigital = false;
+                    break;
+                }
+            }
+        }
+        
+        return pandigital;
+    }
+
 }

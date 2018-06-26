@@ -1,6 +1,8 @@
 package org.jorion.euler.util;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -37,5 +39,17 @@ public class MathUtilsTest
         res = MathUtils.simplify(3, 9);
         assertEquals(1, res[0]);
         assertEquals(3, res[1]);
+    }
+    
+    @Test
+    public void testIsPandigital()
+    {
+        assertTrue(MathUtils.isPandigital(1));
+        assertTrue(MathUtils.isPandigital(123456789));
+        assertTrue(MathUtils.isPandigital(987654321));
+        // "0" not allowed
+        assertFalse(MathUtils.isPandigital(1230456));
+        // missing "4"
+        assertFalse(MathUtils.isPandigital(123567));
     }
 }
