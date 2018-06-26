@@ -50,7 +50,7 @@ public class MathUtils
     /**
      * Simplify the given fraction (num/den).
      * <p>
-     * Example: "2 / 10" will return "1 / 5" 
+     * Example: "2 / 10" will return "1 / 5"
      * 
      * @param num the numerator
      * @param den the denumerator
@@ -80,7 +80,7 @@ public class MathUtils
         boolean pandigital = true;
         int[] digits = new int[10];
         digits[0] = 1;
-        
+
         int count = 0;
         while (n > 0) {
             int mod = n % 10;
@@ -105,6 +105,13 @@ public class MathUtils
         return pandigital;
     }
 
+    /**
+     * Return true if the given number is made of only unique digits.
+     * 
+     * @param n the integer to analyze
+     * @param zeroAllowed true if zero is accepted as a digit
+     * @return true if each digit of n appears only once
+     */
     public static boolean isUnique(int n, boolean zeroAllowed)
     {
         boolean unique = true;
