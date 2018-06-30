@@ -82,7 +82,8 @@ public class WordUtils
      * @param digits an array of digits
      * @return the array converted to a string (leading 0 are skipped)
      */
-    public static String arrayToString(int[] digits)
+    @Deprecated
+    public static String digitToString(int[] digits)
     {
         int n = digits.length - 1;
         StringBuilder sb = new StringBuilder();

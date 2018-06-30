@@ -71,13 +71,6 @@ public class WordUtilsTest {
 		Utils.print("Method 2, #iter: " + len, "", delta);
 	}
 
-	@Test
-	public void testArrayToString() {
 
-		assertEquals("0", WordUtils.arrayToString(new int[0]));
-		assertEquals("0", WordUtils.arrayToString(new int[10]));
-		int[] digits = { 0, 1, 2, 3, 0, 0 };
-		assertEquals("3210", WordUtils.arrayToString(digits));
-	}
 
 }

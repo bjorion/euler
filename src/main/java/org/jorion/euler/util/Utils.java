@@ -128,12 +128,12 @@ public class Utils
     public static int nextTrue(boolean[] arr, int index)
     {
         int len = arr.length;
-        while (index < len) {
+        while (index < len - 1) {
             index++;
             if (arr[index]) {
                 break;
             }
         }
-        return (index < len) ? index : -1;
+        return (index < len - 1) ? index : -1;
     }
 }
