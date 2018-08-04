@@ -1,6 +1,5 @@
 package org.jorion.euler.problem;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +23,7 @@ public class Euler099
     public static void main(String[] args)
             throws Exception
     {
-        long res;
+        long res; // 709
         long delta;
 
         List<String> lines = Utils.readLines("p099_base_exp.txt");
@@ -37,60 +36,32 @@ public class Euler099
 
     private static long calc1(List<String> lines)
     {
+        final int logBase = 0;
+        final int exp = 1;
+
         int size = lines.size();
-        List<int[]> list = new ArrayList<>(size);
-        List<String[]> strings = new ArrayList<>(size);
+        List<double[]> list = new ArrayList<>(size);
 
         // parse the lines
         for (int i = 0; i < lines.size(); i++) {
             String[] numbers = lines.get(i).split(",");
-            strings.add(numbers);
-            int a = Integer.parseInt(numbers[0]);
-            int b = Integer.parseInt(numbers[1]);
-            list.add(new int[] { a, b });
+            double a = Math.log(Integer.parseInt(numbers[0]));
+            double b = Integer.parseInt(numbers[1]);
+            list.add(new double[] { a, b }); // log(base), exponent
         }
 
-        // remove lines where both numbers are smaller than numbers on another line
-        int count = 0;
-        for (int i = 0; i < list.size(); i++) {
-            int[] ab = list.get(i);
-            if (ab != null) {
-                for (int j = i + 1; j < list.size(); j++) {
-                    int[] cd = list.get(j);
-                    if (cd != null) {
-                        if (cd[0] <= ab[0] && cd[1] <= ab[1]) {
-                            // System.out.println("removing index: " + i + ":" + j);
-                            list.set(j, null); // cd = null
-                            count++;
-                        }
-                        if (cd[0] > ab[0] && cd[1] > ab[1]) {
-                            list.set(i, null); // ab = null
-                            // System.out.println("removing index: " + i + ":" + j);
-                            count++;
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-        System.out.println(count);
-
-        int index = -1;
-        BigInteger best = BigInteger.ZERO;
-        for (int i = 0; i < list.size(); i++) {
-            int[] ab = list.get(i);
-            if (ab != null) {
-                System.out.println(i);
-                String[] numbers = strings.get(i);
-                BigInteger bi = new BigInteger(numbers[0]).pow(ab[1]);
-                if (bi.compareTo(best) > 0) {
-                    best = bi;
-                    index = i;
-                }
+        int index = 0;
+        double highest = list.get(0)[exp] * list.get(0)[logBase];
+        for (int i = 1; i < list.size(); i++) {
+            double cur = list.get(i)[exp] * list.get(i)[logBase];
+            if (cur > highest) {
+                highest = cur;
+                index = i;
+                // System.out.println(index + ":" + cur);
             }
         }
 
-        return index;
+        return index + 1;
     }
 
 }
