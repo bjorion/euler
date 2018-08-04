@@ -1,29 +1,29 @@
 package org.jorion.euler.problem;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.slf4j.MDC;
+import org.jorion.euler.util.Utils;
 
 /**
- * Demo class for the logging.
  */
-public class Euler000 {
+public class Euler000
+{
+    // --- Methods ---
+    public static void main(String[] args)
+    {
+        final int max = 0;
+        long res;
+        long delta;
 
-	// --- Constants ---
-	private static final Logger LOG = LoggerFactory.getLogger(Euler000.class);
+        Utils.start();
+        res = calc1(max);
+        delta = Utils.stop();
+        Utils.print("Algorithm ", res, delta);
+    }
 
-	// --- Methods ---
-	public static void main(String[] args) {
+    /**
+     */
+    private static long calc1(int max)
+    {
+        return 0;
+    }
 
-		// print internal state
-		// LoggerContext lc = (LoggerContext) LoggerFactory.getILoggerFactory();
-		// StatusPrinter.print(lc);
-
-		MDC.put("main", "Euler000");
-
-		LOG.debug("print some debug");
-		LOG.info("print some info");
-		LOG.warn("print some warn");
-		LOG.error("print some error");
-	}
 }
