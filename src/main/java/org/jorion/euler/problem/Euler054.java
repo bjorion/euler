@@ -1,7 +1,6 @@
 package org.jorion.euler.problem;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -97,7 +96,7 @@ public class Euler054 {
 			Hand h2 = new Hand(cards2);
 			h2.analyse();
 
-			System.out.println(Arrays.toString(cards1) + " vs " + Arrays.toString(cards2));
+			// System.out.print(h1.toString() + " vs " + h2.toString() + ": ");
 			int res = h1.compareTo(h2);
 			if (res > 0) {
 				first++;
@@ -108,7 +107,7 @@ public class Euler054 {
 			else {
 				tie++;
 			}
-			System.out.println(res);
+			// System.out.println(res > 0 ? "1" : "-1");
 		}
 		System.out.println("first: " + first + ", second: " + second + ", tie: " + tie);
 		return first;
@@ -118,12 +117,19 @@ public class Euler054 {
 	private static long calc2(List<String> lines) {
 
 		lines = new ArrayList<>();
-		lines.add("5H 5C 6S 7S KD 2C 3S 8S 8D TD");
-		lines.add("5D 8C 9S JS AC 2C 5C 7D 8S QH");
-		lines.add("2D 9C AS AH AC 3D 6D 7D TD QD");
-		lines.add("4D 6S 9H QH QC 3D 6D 7H QD QS");
-		lines.add("2H 2D 4C 4D 4S 3C 3D 3S 9S 9D");
-		lines.add("2H 3D 4C 5D AS 2D 3H 4D 5C AH");
+		lines.add("5H 5C 6S 7S KD 2C 3S 8S 8D TD"); // Pair 5 < Pair 8
+		lines.add("5D 8C 9S JS AC 2C 5C 7D 8S QH"); // Ace > Queen
+		lines.add("2D 9C AS AH AC 3D 6D 7D TD QD"); // Brelan(Ace) < Flush(Diamonds)
+		lines.add("4D 6S 9H QH QC 3D 6D 7H QD QS"); // Pair(Q) + 9 > Pair(Q) + 7
+		lines.add("2H 2D 4C 4D 4S 3C 3D 3S 9S 9D"); // Full(4,2) > Full(3,9)
+		lines.add("2H 3D 4C 5D AS 2D 3H 4D 5C AH"); // Tie
+		lines.add("TS JS QS KS AS 2D 3H 4D 5C AH"); // Royal flush
+		lines.add("6S 6H 4S 4H 3S 6S 6H 2S 2H AS"); // Pair 6,4 > Pair 6,2
+		lines.add("6S 6H 4S 4H KS 6S 6H 4S 4H QS"); // Pair 6,4 + K > Pair 6,4 + Q
+		lines.add("6S 6H 4S 4H 2S 6S 6H 4S 4H 5S"); // Pair 6,4 + 2 < Pair 6,4 + 5
+		lines.add("AS QS TH 8S 6S AS QS TH 8S 7S"); // 6 < 7
+		lines.add("6H 4H 5C 3H 2H 3S QH 5S 6S AS"); // Strait > As
+		lines.add("KS KC 9S 6D 2C QH 9D 9H TS TC"); // 1 Pair < 2 Pairs
 
 		return calc1(lines);
 	}
@@ -140,22 +146,33 @@ public class Euler054 {
 
 		private int secondPair;
 
+		/** Brelan. */
 		private int threeOfAKind;
 
+		/** Consecutive values. */
 		private boolean strait;
 
+		/** Same suit. */
 		private boolean flush;
 
+		/** Brelan + Pair. */
 		private boolean fullHouse;
 
+		/** Square. */
 		private int fourOkAKind;
 
+		/** Consecutive values within the same suit. */
 		private boolean straitFlush;
 
 		/** Count how many times a given value appears (key/value)=(value/count). */
 		private Map<Integer, Integer> map;
 
 		// -- Methods ---
+		/**
+		 * Constructor.
+		 *
+		 * @param cardsAsStr an array of strings, each string = one card
+		 */
 		Hand(String[] cardsAsStr) {
 
 			for (int i = 0; i < N; i++) {
@@ -176,6 +193,9 @@ public class Euler054 {
 			return sb.toString();
 		}
 
+		/**
+		 * Analyse the hand. Must be called after the constructor.
+		 */
 		void analyse() {
 
 			sortCards();
@@ -197,7 +217,7 @@ public class Euler054 {
 
 			int res = 0;
 
-			// Strait Flush (5 cards)
+			// Strait Flush (5 consecutive cards, same suit)
 			if (this.isStraitFlush() || that.isStraitFlush()) {
 				res = Boolean.compare(this.isStraitFlush(), that.isStraitFlush());
 				if (res == 0) {
@@ -225,7 +245,7 @@ public class Euler054 {
 				return res;
 			}
 
-			// Flush (no brelan or pair possible)
+			// Flush (same suit) (no brelan or pair possible)
 			if (this.isFlush() || that.isFlush()) {
 				res = Boolean.compare(this.isFlush(), that.isFlush());
 				if (res == 0) {
@@ -235,7 +255,7 @@ public class Euler054 {
 				return res;
 			}
 
-			// Strait (no brelan or pair possible)
+			// Strait (consecutive value) (no brelan or pair possible)
 			if (this.isStrait() || that.isStrait()) {
 				res = Boolean.compare(this.isStrait(), that.isStrait());
 				if (res == 0) {
@@ -258,16 +278,23 @@ public class Euler054 {
 			int thisPair2 = this.getSecondPair();
 			int thatPair2 = that.getSecondPair();
 
-			// Double pairs
-			if (thisPair2 > 0 || thatPair2 > 0) {
+			// Double pairs on both side
+			if (thisPair2 > 0 && thatPair2 > 0) {
+				// compare first pair
 				res = Integer.compare(thisPair, thatPair);
-				// check second pair
+				// compare second pair
 				if (res == 0) {
 					res = Integer.compare(thisPair2, thatPair2);
 					if (res == 0) {
-						this.compareCard(that);
+						res = this.compareCard(that);
 					}
 				}
+				return res;
+			}
+
+			// Double pair on one side only
+			if (thisPair2 > 0 || thatPair2 > 0) {
+				res = Integer.compare(thisPair2, thatPair2);
 				return res;
 			}
 
@@ -285,6 +312,9 @@ public class Euler054 {
 			return res;
 		}
 
+		/**
+		 * @return The highest different value from both hands
+		 */
 		private int compareCard(Hand that) {
 
 			int res = 0;
@@ -320,18 +350,28 @@ public class Euler054 {
 			}
 		}
 
+		/**
+		 * Look for the first (highest) pair.
+		 *
+		 * @return 0 if none, the value (present 2 times) if found
+		 */
 		private void checkFirstPair() {
 
 			this.firstPair = nOfAKind(2, 1);
 		}
 
+		/**
+		 * Look for the second (lowest) pair.
+		 *
+		 * @return 0 if none, the value (present 2 times) if found
+		 */
 		private void checkSecondPair() {
 
 			this.secondPair = nOfAKind(2, 2);
 		}
 
 		/**
-		 * Three of a kind.
+		 * Look for a brelan.
 		 *
 		 * @return 0 if none, the value (present 3 times) if found
 		 */
@@ -347,17 +387,14 @@ public class Euler054 {
 
 			boolean flag = true;
 			Iterator<Card> iter = cards.iterator();
-			int val = -1;
+			int val = iter.next().getVal();
 			while (iter.hasNext()) {
 				Card card = iter.next();
-				if (val == -1) {
-					val = card.getVal();
-				}
+				val--;
 				if (card.getVal() != val) {
 					flag = false;
 					break;
 				}
-				val++;
 			}
 			this.strait = flag;
 		}
@@ -383,6 +420,9 @@ public class Euler054 {
 			this.flush = flag;
 		}
 
+		/**
+		 * Check a brelan and a pair.
+		 */
 		private void checkFullHouse() {
 
 			this.fullHouse = (this.threeOfAKind > 0) && (this.firstPair > 0);
@@ -413,6 +453,7 @@ public class Euler054 {
 		 */
 		private int nOfAKind(int number, int position) {
 
+			Utils.assertThat(map != null && map.keySet().size() > 0, "n of a Kind");
 			int val = 0, count = 0;
 			for (Entry<Integer, Integer> es : map.entrySet()) {
 				int tmp = 0;
@@ -482,7 +523,7 @@ public class Euler054 {
 		/** Diamond. */
 		D,
 
-		/** Clover. */
+		/** Club. */
 		C;
 	}
 
@@ -504,9 +545,10 @@ public class Euler054 {
 
 		private final Suit suit;
 
-		/* 2..10 J Q K A */
+		/** 2..10 J Q K A */
 		private final String value;
 
+		/** 2..14 */
 		private final int val;
 
 		// --- Methods ---
