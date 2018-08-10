@@ -49,6 +49,20 @@ public class Utils {
 	}
 
 	/**
+	 * Throws a {@link RuntimeException} if {@code flag} is false.
+	 *
+	 * @param flag the boolean to check
+	 * @param msg the exception message (if any)
+	 * @throw RuntimeException if flag is false
+	 */
+	public static void assertThat(boolean flag, String msg) {
+
+		if (!flag) {
+			throw new RuntimeException(msg);
+		}
+	}
+
+	/**
 	 * Display a formatted string.
 	 *
 	 * @param msg a free text
