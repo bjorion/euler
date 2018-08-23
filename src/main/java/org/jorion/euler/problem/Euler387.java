@@ -30,16 +30,21 @@ public class Euler387 {
 	// --- Methods ---
 	public static void main(String[] args) {
 
-		final long max = 10_000L;
-		String res; // ?
+		final long max = 100_000_000_000_000L; // 10_000L;
+		long res; // 696_067_597_313_468
 		long delta;
 
 		Utils.start();
-		res = calc1(max);
+		res = calc2(max);
 		delta = Utils.stop();
 		Utils.print("Algorithm ", res, delta);
 	}
 
+	/**
+	 * This algorithm is way too slow.
+	 */
+	@Deprecated
+	@SuppressWarnings("unused")
 	private static String calc1(long max) {
 
 		BigInteger res = BigInteger.ZERO;
@@ -69,7 +74,64 @@ public class Euler387 {
 	}
 
 	/**
-	 * @return the sum of the digits is n is divisable by this sum
+	 * Use recursion to find solutions.
+	 */
+	private static long calc2(long max) {
+
+		long res = 0;
+		for (long i = 1; i <= 9; i++) {
+			res += loop(i, max);
+		}
+		return res;
+	}
+
+	private static long loop(long base, long max) {
+
+		long next = base * 10;
+		long res = 0;
+
+		// stop recurrence
+		if (next * 10 >= max) {
+			return res;
+		}
+
+		for (int i = 0; i <= 9; i++) {
+			long curr = next + i;
+			int sum = isHarshad(curr, Long.toString(curr));
+			if (sum < 0) {
+				continue;
+			}
+			if (isStrongHarshad(curr, sum)) {
+				res += isStrongHarshadPrime(curr);
+			}
+			res += loop(curr, max);
+		}
+		return res;
+	}
+
+	/**
+	 * @param base a Strong Harshad number
+	 * @return the sum of strong Harshad number primes
+	 */
+	private static long isStrongHarshadPrime(long base) {
+
+		long res = 0;
+		long next = base * 10;
+		// we skip even numbers
+		for (int i = 1; i <= 9; i = i + 2) {
+			long curr = next + i;
+			if (PrimeUtils.isPrime6(curr)) {
+				// System.out.println("adding: " + curr);
+				res += curr;
+			}
+		}
+		return res;
+	}
+
+	/**
+	 * @param n the number to test
+	 * @param str a string representation of this number
+	 * @return the sum of the digits of n, if n is divisable by this sum, -1 otherwise
 	 */
 	private static int isHarshad(long n, String str) {
 
@@ -89,6 +151,7 @@ public class Euler387 {
 	/**
 	 * Right-truncate every digit of the given number and returns true if every result turns out to be a Harshad number.
 	 */
+	@Deprecated
 	private static boolean isRTHarshad(long n, String str) {
 
 		boolean rtHarshad = false;
