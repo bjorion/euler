@@ -48,6 +48,17 @@ public class MathUtils {
 		return a;
 	}
 
+	public static long gcd(long a, long b) {
+
+		long remainder;
+		while (b != 0) {
+			remainder = a % b;
+			a = b;
+			b = remainder;
+		}
+		return a;
+	}
+
 	/**
 	 * Simplify the given fraction (num/den).
 	 * <p>
@@ -66,6 +77,15 @@ public class MathUtils {
 		return res;
 	}
 
+	public static long[] simplify(long num, long den) {
+
+		long gcd = gcd(num, den);
+		num = num / gcd;
+		den = den / gcd;
+		long[] res = { num, den };
+		return res;
+	}
+
 	/**
 	 * Add the two given fractions. Each fraction is an array of two integers (first elem is num, second elem is denum).
 	 *
@@ -73,10 +93,10 @@ public class MathUtils {
 	 * @param f2 the second fraction
 	 * @return the sum of the fraction, simplified
 	 */
-	public static int[] addFractions(int[] f1, int[] f2) {
+	public static long[] addFractions(long[] f1, long[] f2) {
 
-		int num = f1[0] * f2[1] + f1[1] * f2[0];
-		int den = f1[1] * f2[1];
+		long num = f1[0] * f2[1] + f1[1] * f2[0];
+		long den = f1[1] * f2[1];
 		return simplify(num, den);
 	}
 

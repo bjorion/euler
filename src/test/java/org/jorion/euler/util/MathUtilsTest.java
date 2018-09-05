@@ -44,7 +44,7 @@ public class MathUtilsTest {
 	@Test
 	public void testAddFraction() {
 
-		int[] res = MathUtils.addFractions(new int[] { 1, 2 }, new int[] { 3, 5 });
+		long[] res = MathUtils.addFractions(new long[] { 1, 2 }, new long[] { 3, 5 });
 		assertEquals(11, res[0]);
 		assertEquals(10, res[1]);
 	}
