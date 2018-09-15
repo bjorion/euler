@@ -1,5 +1,7 @@
 package org.jorion.euler.problem;
 
+import java.math.BigInteger;
+
 import org.jorion.euler.util.MathUtils;
 import org.jorion.euler.util.Utils;
 import org.jorion.euler.util.WordUtils;
@@ -166,6 +168,7 @@ import org.jorion.euler.util.WordUtils;
 public class Euler065 {
 
 	// --- Methods ---
+    // e = 2.71828 18284 59045 23536 02874 71352 66249 77572 47093 69995...
 	public static void main(String[] args) {
 
 		final int max = 100;
@@ -181,23 +184,22 @@ public class Euler065 {
 	private static int calc1(int max) {
 
 		max--;
-		long[] res = { 0, 1 };
+		BigInteger[] res = { BigInteger.ZERO, BigInteger.ONE };
 		for (int i = max; i > 0; i--) {
 
+		    // e = [2; 1,2,1, 1,4,1, 1,6,1 , ... , 1,2k,1, ...]
 			int val = (i % 3 == 2) ? ((i + 1) / 3) * 2 : 1;
-			System.out.println("i: " + i + ", val: " + val);
+			// System.out.println("i: " + i + ", val: " + val);
 
 			// compute 1 / (val + res)
-			long[] tmp = MathUtils.addFractions(new long[] { val, 1 }, res);
+			BigInteger[] tmp = MathUtils.addFractions(new BigInteger[] { new BigInteger(Integer.toString(val)), BigInteger.ONE }, res);
 			res[0] = tmp[1];
 			res[1] = tmp[0];
-			float e = 2 + ((float) res[0]) / res[1];
-			System.out.println("e: " + e + ", fraction: " + res[0] + "/" + res[1]);
 		}
 		// add starting 2
-		res = MathUtils.addFractions(new long[] { 2, 1 }, res);
-		System.out.println(res[0] + "/" + res[1]);
-		return WordUtils.countDigits(Long.toString(res[0]));
+		res = MathUtils.addFractions(new BigInteger[] { MathUtils.TWO, BigInteger.ONE }, res);
+		// System.out.println(res[0].toString() + "/" + res[1].toString());
+		return WordUtils.countDigits(res[0].toString());
 	}
 
 	@SuppressWarnings("unused")

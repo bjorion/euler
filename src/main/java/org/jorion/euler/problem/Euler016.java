@@ -2,6 +2,7 @@ package org.jorion.euler.problem;
 
 import java.math.BigInteger;
 
+import org.jorion.euler.util.MathUtils;
 import org.jorion.euler.util.Utils;
 
 /**
@@ -40,9 +41,8 @@ public class Euler016 {
 	private static int calc1(int max) {
 
 		BigInteger n = BigInteger.ONE;
-		BigInteger two = new BigInteger("2");
 		for (int i = 0; i < max; i++) {
-			n = n.multiply(two);
+			n = n.multiply(MathUtils.TWO);
 		}
 
 		int sum = 0;
@@ -56,8 +56,7 @@ public class Euler016 {
 
 	private static int calc2(int max) {
 
-		BigInteger two = new BigInteger("2");
-		BigInteger n = two.pow(max);
+		BigInteger n = MathUtils.TWO.pow(max);
 
 		int sum = 0;
 		String str = n.toString();

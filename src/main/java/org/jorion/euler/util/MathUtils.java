@@ -1,7 +1,12 @@
 package org.jorion.euler.util;
 
+import java.math.BigInteger;
+
 public class MathUtils {
 
+    // --- Constants ---
+    public static final BigInteger TWO = new BigInteger("2");
+    
 	// --- Methods ---
 	protected static void wakeUp() {
 
@@ -58,6 +63,17 @@ public class MathUtils {
 		}
 		return a;
 	}
+	
+	public static BigInteger gcd(BigInteger a, BigInteger b) {
+	    
+	    BigInteger rem;
+	    while (!b.equals(BigInteger.ZERO)) {
+	        rem = a.mod(b);
+	        a = b;
+	        b = rem;
+	    }
+	    return a;
+	}
 
 	/**
 	 * Simplify the given fraction (num/den).
@@ -85,6 +101,15 @@ public class MathUtils {
 		long[] res = { num, den };
 		return res;
 	}
+	
+	public static BigInteger[] simplify(BigInteger num, BigInteger den) {
+	    
+	    BigInteger gcd = gcd(num, den);
+	    num = num.divide(gcd);
+	    den = den.divide(gcd);
+	    BigInteger[] res = { num, den };
+	    return res;
+	}
 
 	/**
 	 * Add the two given fractions. Each fraction is an array of two integers (first elem is num, second elem is denum).
@@ -97,7 +122,16 @@ public class MathUtils {
 
 		long num = f1[0] * f2[1] + f1[1] * f2[0];
 		long den = f1[1] * f2[1];
-		return simplify(num, den);
+		long[] res = simplify(num, den);
+		return res;
+	}
+	
+	public static BigInteger[] addFractions(BigInteger[] f1, BigInteger[] f2) {
+	    
+	    BigInteger num = f1[0].multiply(f2[1]).add(f1[1].multiply(f2[0]));
+	    BigInteger den = f1[1].multiply(f2[1]);
+	    BigInteger[] res = simplify(num, den);
+	    return res;
 	}
 
 	/**
