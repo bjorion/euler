@@ -172,7 +172,7 @@ public class Euler065 {
 	public static void main(String[] args) {
 
 		final int max = 100;
-		int res;
+		int res; // 272
 		long delta;
 
 		Utils.start();
@@ -191,8 +191,10 @@ public class Euler065 {
 			int val = (i % 3 == 2) ? ((i + 1) / 3) * 2 : 1;
 			// System.out.println("i: " + i + ", val: " + val);
 
-			// compute 1 / (val + res)
+			// compute (val + res)
 			BigInteger[] tmp = MathUtils.addFractions(new BigInteger[] { new BigInteger(Integer.toString(val)), BigInteger.ONE }, res);
+			
+			// compute res = 1 / tmp
 			res[0] = tmp[1];
 			res[1] = tmp[0];
 		}
