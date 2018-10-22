@@ -87,4 +87,14 @@ public class WordUtilsTest
         assertEquals("MCML", WordUtils.toRoman(1950));
     }
 
-}
+  	@Test
+  	public void testIsPermutation() {
+
+  		assertFalse(WordUtils.isPermutation("", "aa"));
+  		assertFalse(WordUtils.isPermutation("a", "aa"));
+  		assertFalse(WordUtils.isPermutation("abcdef", "abcdeg"));
+  		assertTrue(WordUtils.isPermutation("abcdef", "abcdef"));
+  		assertTrue(WordUtils.isPermutation("abcdef", "fedcba"));
+  		assertTrue(WordUtils.isPermutation("56623104", "66430125"));
+  	}
+ }

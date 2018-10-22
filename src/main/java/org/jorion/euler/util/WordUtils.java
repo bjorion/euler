@@ -1,5 +1,7 @@
 package org.jorion.euler.util;
 
+import java.util.Arrays;
+
 public class WordUtils
 {
     // --- Constants ---
@@ -194,4 +196,23 @@ public class WordUtils
         assert n == 0 : "Computation not done: n = " + n;
         return sb.toString();
     }
+    
+  	/**
+  	 * @param a the first string
+  	 * @param b the second string
+  	 * @return true if the strings are permutations of each other (ex: "ABC" and "CBA")
+  	 */
+  	public static boolean isPermutation(String a, String b) {
+
+  		if (a.length() != b.length()) {
+  			return false;
+  		}
+
+  		char[] cha = a.toCharArray();
+  		Arrays.sort(cha);
+  		char[] chb = b.toCharArray();
+  		Arrays.sort(chb);
+  		return Arrays.equals(cha, chb);
+  	}
+
 }
