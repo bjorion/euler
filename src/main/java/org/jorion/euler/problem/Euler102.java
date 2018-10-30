@@ -39,11 +39,21 @@ public class Euler102 {
 		res = calc1(lines);
 		delta = Utils.stop();
 		Utils.print("Algorithm ", res, delta);
+
+		Utils.start();
+		res = calc2(lines);
+		delta = Utils.stop();
+		Utils.print("Streams   ", res, delta);
+
+		Utils.start();
+		res = calc3(lines);
+		delta = Utils.stop();
+		Utils.print("Parallel  ", res, delta);
 	}
 
 	/**
 	 * Let A, B and C be the three summits of the triangle. We compute AB, BC and AC the three lines (that include the triangle sides). For each line,
-	 * we check if the origin and the 3r summit are on the same side. If it's always yes, then the origin is inside the triangle.
+	 * we check if the origin and the 3rd summit are on the same side. If it's always yes, then the origin is inside the triangle.
 	 * <p>
 	 * Hypothesis:
 	 * <ul>
@@ -54,7 +64,7 @@ public class Euler102 {
 	 * @param lines A list of 6 integers coordinates of the summits
 	 * @return the number of triangles containing the origin
 	 */
-	private static int calc1(List<String> lines) {
+	private static long calc1(List<String> lines) {
 
 		List<Triangle> triangles = new ArrayList<>();
 		for (String line : lines) {
@@ -65,12 +75,48 @@ public class Euler102 {
 			triangles.add(new Triangle(a, b, c));
 		}
 
-		int res = 0;
+		long res = 0;
 		for (Triangle t : triangles) {
 			if (t.containsOrigin()) {
 				res++;
 			}
 		}
+		return res;
+	}
+
+	/**
+	 * Same that {@code calc1} but with streams.
+	 */
+	private static long calc2(List<String> lines) {
+
+		List<Triangle> triangles = new ArrayList<>();
+		for (String line : lines) {
+			String[] vals = line.split(",");
+			Point a = new Point(vals[0], vals[1]);
+			Point b = new Point(vals[2], vals[3]);
+			Point c = new Point(vals[4], vals[5]);
+			triangles.add(new Triangle(a, b, c));
+		}
+
+		long res = triangles.stream().filter(t -> t.containsOrigin()).count();
+		return res;
+	}
+
+	/**
+	 * Same that {@code calc1} but with parallel streams.
+	 */
+	private static long calc3(List<String> lines) {
+
+		List<Triangle> triangles = new ArrayList<>();
+		for (String line : lines) {
+			String[] vals = line.split(",");
+			Point a = new Point(vals[0], vals[1]);
+			Point b = new Point(vals[2], vals[3]);
+			Point c = new Point(vals[4], vals[5]);
+			triangles.add(new Triangle(a, b, c));
+		}
+
+		long res = triangles.stream().parallel().filter(t -> t.containsOrigin()).count();
 		return res;
 	}
 
