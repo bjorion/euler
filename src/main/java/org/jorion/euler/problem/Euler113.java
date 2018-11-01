@@ -35,13 +35,16 @@ public class Euler113
         Utils.print("'Next Step' algorithm", format(res), delta);
     }
 
+    /**
+     * Not efficient enough algorithm. (10^50 = 20min)
+     */
     private static long calc1(int max)
     {
-        // 10^10: inc: 92.377, dec: 184.745, stable: 90 = 90*1, sum: 277.032 (0.025s)
-        // 10^20: inc: 10.015.004 (100*~), dec: 30.044.994, stable: 180 = 90*2, sum: 40.059.818 (0.400s = 16*~) 
-        // 10^30: inc: 211.915.131 (20*~), dec: 847.660.497, stable: 270 = 90*3, sum: 1.059.575.358 (10s = 25*~) 
-        // 10^40: inc: 2.054.455.633 (10*~), dec: 10.272.278.129, stable: 360 = 90*4, sum: 12.326.733.402 (125s = 12*~) 
-        // 10^50: inc: 12.565.671.260 (6*~), dec: 75.394.027.515, stable: 450 = 90*5, sum: 87.959.698.325 (1137s = 9*~) 
+        // 10^10: inc: ________92.377, ________dec: _______184.745, stable: _90 = 90*1, sum: _______277.032 (___0.025s)
+        // 10^20: inc: ____10.015.004 (100*~), dec: ____30.044.994, stable: 180 = 90*2, sum: ____40.059.818 (___0.400s = 16*~) 
+        // 10^30: inc: ___211.915.131 (_20*~), dec: ___847.660.497, stable: 270 = 90*3, sum: _1.059.575.358 (__10s = 25*~) 
+        // 10^40: inc: _2.054.455.633 (_10*~), dec: 10.272.278.129, stable: 360 = 90*4, sum: 12.326.733.402 (_125s = 12*~) 
+        // 10^50: inc: 12.565.671.260 (__6*~), dec: 75.394.027.515, stable: 450 = 90*5, sum: 87.959.698.325 (1137s = 9*~) 
 
         long stable = 9 * max;
         System.out.println("stable: " + format(stable));
@@ -51,9 +54,6 @@ public class Euler113
         while (bi.next()) {
             count1++;
             // System.out.println(bi.toString());
-            // if (count1 < 0) {
-            // throw new IllegalStateException("bi: " + bi.toString() + ", count1: " + count1);
-            // }
         }
         System.out.println("increasing: " + format(count1));
         
