@@ -1,5 +1,8 @@
 package org.jorion.euler.problem;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 import org.jorion.euler.util.Utils;
 
 /**
@@ -21,46 +24,55 @@ public class Euler113
     // --- Methods ---
     public static void main(String[] args)
     {
-        final int max = 100;
+        final int max = 50;
         long res;
         long delta;
 
         Utils.start();
         res = calc1(max);
         delta = Utils.stop();
-        Utils.print("Algorithm ", res, delta);
+
+        Utils.print("'Next Step' algorithm", format(res), delta);
     }
 
     private static long calc1(int max)
     {
-        // below 1_000: 219 increasing numbers (with 27 stable)
-        // below 1_000_000: 5004 increasing numbers (with 54 stable)
+        // 10^10: inc: 92.377, dec: 184.745, stable: 90 = 90*1, sum: 277.032 (0.025s)
+        // 10^20: inc: 10.015.004 (100*~), dec: 30.044.994, stable: 180 = 90*2, sum: 40.059.818 (0.400s = 16*~) 
+        // 10^30: inc: 211.915.131 (20*~), dec: 847.660.497, stable: 270 = 90*3, sum: 1.059.575.358 (10s = 25*~) 
+        // 10^40: inc: 2.054.455.633 (10*~), dec: 10.272.278.129, stable: 360 = 90*4, sum: 12.326.733.402 (125s = 12*~) 
+        // 10^50: inc: 12.565.671.260 (6*~), dec: 75.394.027.515, stable: 450 = 90*5, sum: 87.959.698.325 (1137s = 9*~) 
 
-        int count1 = 0;
-        int stable = 0;
+        long stable = 9 * max;
+        System.out.println("stable: " + format(stable));
+        
+        long count1 = 0;
         BigInteger bi = new BigInteger(true, max);
         while (bi.next()) {
             count1++;
-            if (bi.isStable()) {
-                stable++;
-            }
             // System.out.println(bi.toString());
+            // if (count1 < 0) {
+            // throw new IllegalStateException("bi: " + bi.toString() + ", count1: " + count1);
+            // }
         }
+        System.out.println("increasing: " + format(count1));
+        
 
-        // below 1_000: 282 decreasing numbers (with 27 stable)
-        // below 1_000_000: 8001 decreasing numbers (with 54 stable)
-        int count2 = 0;
+        long count2 = 0;
         bi = new BigInteger(false, max);
         while (bi.next()) {
             count2++;
             // System.out.println(bi.toString());
         }
         count2--;
-        System.out.println("count: " + count1);
-        System.out.println("count: " + count2);
-        System.out.println("stable: " + stable);
+        System.out.println("decreasing: " + format(count2));
+        
+        return (count1 + count2 - stable);
+    }
 
-        return count1 + count2 - stable;
+    private static String format(long num)
+    {
+        return NumberFormat.getNumberInstance(Locale.GERMAN).format(num);
     }
 
     static class BigInteger
@@ -137,10 +149,6 @@ public class Euler113
             int curr = size;
             int start = curr;
 
-            if (this.toString().equals("0911")) {
-                // System.out.println("--" + this);
-            }
-
             while (true) {
 
                 int val = getVal(curr);
@@ -181,8 +189,10 @@ public class Euler113
          * Code is optimized to avoid looping through all leading zeros. We start from the last digits, but this is a
          * little bit more complex.
          * 
+         * @deprecated not used anymore
          * @return true if the number can be considered both as increasing AND decreasing
          */
+        @Deprecated
         boolean isStable()
         {
             // skip trailing zeros (if any)
