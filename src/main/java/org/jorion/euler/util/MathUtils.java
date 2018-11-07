@@ -4,12 +4,23 @@ import java.math.BigInteger;
 
 public class MathUtils {
 
-    // --- Constants ---
-    public static final BigInteger TWO = new BigInteger("2");
-    
+	// --- Constants ---
+	public static final BigInteger TWO = new BigInteger("2");
+
 	// --- Methods ---
 	protected static void wakeUp() {
 
+	}
+
+	/**
+	 * Compute the sum of 1 to num.
+	 *
+	 * @param num the number to use
+	 * @return the sum of 1 to num
+	 */
+	public static long sum(long num) {
+
+		return num * (num + 1) / 2;
 	}
 
 	/**
@@ -63,16 +74,16 @@ public class MathUtils {
 		}
 		return a;
 	}
-	
+
 	public static BigInteger gcd(BigInteger a, BigInteger b) {
-	    
-	    BigInteger rem;
-	    while (!b.equals(BigInteger.ZERO)) {
-	        rem = a.mod(b);
-	        a = b;
-	        b = rem;
-	    }
-	    return a;
+
+		BigInteger rem;
+		while (!b.equals(BigInteger.ZERO)) {
+			rem = a.mod(b);
+			a = b;
+			b = rem;
+		}
+		return a;
 	}
 
 	/**
@@ -101,14 +112,14 @@ public class MathUtils {
 		long[] res = { num, den };
 		return res;
 	}
-	
+
 	public static BigInteger[] simplify(BigInteger num, BigInteger den) {
-	    
-	    BigInteger gcd = gcd(num, den);
-	    num = num.divide(gcd);
-	    den = den.divide(gcd);
-	    BigInteger[] res = { num, den };
-	    return res;
+
+		BigInteger gcd = gcd(num, den);
+		num = num.divide(gcd);
+		den = den.divide(gcd);
+		BigInteger[] res = { num, den };
+		return res;
 	}
 
 	/**
@@ -125,13 +136,13 @@ public class MathUtils {
 		long[] res = simplify(num, den);
 		return res;
 	}
-	
+
 	public static BigInteger[] addFractions(BigInteger[] f1, BigInteger[] f2) {
-	    
-	    BigInteger num = f1[0].multiply(f2[1]).add(f1[1].multiply(f2[0]));
-	    BigInteger den = f1[1].multiply(f2[1]);
-	    BigInteger[] res = simplify(num, den);
-	    return res;
+
+		BigInteger num = f1[0].multiply(f2[1]).add(f1[1].multiply(f2[0]));
+		BigInteger den = f1[1].multiply(f2[1]);
+		BigInteger[] res = simplify(num, den);
+		return res;
 	}
 
 	/**
