@@ -24,7 +24,7 @@ public class Euler113 {
 	public static void main(String[] args) {
 
 		final int max = 100;
-		long res;
+		long res; // 51.161.058.134.250
 		long delta;
 
 		Utils.start();
@@ -47,18 +47,43 @@ public class Euler113 {
 
 	private static long calcDecreasing(int max) {
 
-		return max * 9;
+		// Compute decreasing numbers ('0' included)
+		// 10^01 => 1 + 1 + ... + 1 = 10
+		// 10^02 => 10 + 2 + 3 + ... + 10 = 64
+		// 10^03 => 64 [0-99] + (1+2) [100-199] + (1+2+3) [200-299] + ... + (1+2+...+10) [900-999]
+		// _____ => 064 + 03 + 06 + 10 + 15 + 021 + 028 + 036 + 045 + 055 = 283
+		// 10^04 => 283 + 04 + 10 + 20 + 35 + 056 + 084 + 120 + 165 + 220 = 997
+		// 10^05 => 997 + 05 + 15 + 35 + 70 + 126 + 210 + 330 + 495 + 715 = 2998
+
+		long c[] = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+		long res = 10; // for 1 digit
+		for (int i = 2; i <= max; i++) {
+			long[] d = new long[10];
+			long acc = 0;
+			for (int j = 0; j < 10; j++) {
+				acc += c[j];
+				d[j] = acc;
+			}
+			long sum = res;
+			for (int j = 1; j < 10; j++) {
+				sum += d[j];
+			}
+			c = d;
+			res = sum;
+		}
+		return res - 1;
 	}
 
 	private static long calcIncreasing(int max) {
 
 		// Compute increasing numbers ('0' included)
-		// 1 digit_ => 1 + 1 + ... + 1 = 10
-		// 2 digits => 1.10 + 1.9 + 1.8 + ... + 1.1 = 55 = S(10)
-		// 3 digits => 1.S(10) + 1.S(9) + _1.S(8) + ... + __1.S(1) = _220
-		// 4 digits => 1.S(10) + 2.S(9) + _3.S(8) + ... + _10.S(1) = _715
-		// 5 digits => 1.S(10) + 3.S(9) + _6.S(8) + ... + _55.S(1) = 2002
-		// 6 digits => 1.S(10) + 4.S(9) + 10.S(8) + ... + 220.S(1) = 5005
+		// 10^01 => 1 + 1 + ... + 1 = 10
+		// 10^02 => 1.10 + 1.9 + 1.8 + ... + 1.1 = 55 = S(10)
+		// 10^03 => 1.S(10) + 1.S(9) + _1.S(8) + ... + __1.S(1) = _220
+		// 10^04 => 1.S(10) + 2.S(9) + _3.S(8) + ... + _10.S(1) = _715
+		// 10^05 => 1.S(10) + 3.S(9) + _6.S(8) + ... + _55.S(1) = 2002
+		// 10^06 => 1.S(10) + 4.S(9) + 10.S(8) + ... + 220.S(1) = 5005
+
 		long[] c = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
 		for (int i = 4; i <= max; i++) {
 			long[] d = new long[10];
@@ -85,12 +110,12 @@ public class Euler113 {
 	@SuppressWarnings("unused")
 	private static long calc1(int max) {
 		// zero included
-		// 10^01: inc: __10, dec: _10, stable: _9+1
-		// 10^02: inc: __55, dec: ___, stable: 18+1
-		// 10^03: inc: _220, dec: ___, stable: 27+1
-		// 10^04: inc: _715, dec: ___, stable: 36+1
-		// 10^05: inc: 2002, dec: ___, stable: 45+1
-		// 10^06: inc: 5005, dec: ___, stable: 54+1
+		// 10^01: inc: __10, dec: __10, stable: _9+1
+		// 10^02: inc: __55, dec: __64, stable: 18+1
+		// 10^03: inc: _220, dec: _283, stable: 27+1
+		// 10^04: inc: _715, dec: _997, stable: 36+1
+		// 10^05: inc: 2002, dec: 2998, stable: 45+1
+		// 10^06: inc: 5005, dec: ____, stable: 54+1
 
 		// zero not included
 		// 10^10: inc: ________92.377, ________dec: _______184.745, stable: _90 = 90*1, sum: _______277.032 (___0.025s)
@@ -106,18 +131,18 @@ public class Euler113 {
 		BigInteger bi = new BigInteger(true, max);
 		while (bi.next()) {
 			count1++;
-			System.out.println(bi.toString());
+			// System.out.println(bi.toString());
 		}
 		System.out.println("increasing: " + format(count1));
 
-		long count2 = stable;
-		// bi = new BigInteger(false, max);
-		// while (bi.next()) {
-		// count2++;
-		// System.out.println(bi.toString());
-		// }
-		// count2--;
-		// System.out.println("decreasing: " + format(count2));
+		long count2 = 0;
+		bi = new BigInteger(false, max);
+		while (bi.next()) {
+			count2++;
+			// System.out.println(bi.toString());
+		}
+		count2--;
+		System.out.println("decreasing: " + format(count2));
 
 		return (count1 + count2 - stable);
 	}
