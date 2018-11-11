@@ -30,7 +30,7 @@ public class Euler051
         Utils.start();
         res = calc1(len);
         delta = Utils.stop();
-        Utils.print("Algorithm ", res, delta);
+        Utils.print("Simple Algorithm ", res, delta);
     }
 
     /**
@@ -89,26 +89,23 @@ public class Euler051
             }
         }
         // System.out.println("Pattern: " + pattern);
-        family.stream().forEach(System.out::println);
+        // family.stream().forEach(System.out::println);
         return (pattern != null) ? family.get(0) : null;
     }
 
     private static boolean hasAtLeastRecurringDigit(String s, int n)
     {
-
+        boolean ok = false;
         int[] arr = new int[10];
         for (int i = 0; i < s.length(); i++) {
             int digit = (s.charAt(i) - '0');
             arr[digit]++;
-        }
-        int max = 0;
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] > max) {
-                max = arr[i];
+            if (arr[digit] >= n) {
+                ok = true;
+                break;
             }
         }
-
-        return (max >= n);
+        return ok;
     }
 
     private static String findCommonPattern(String a, String b)
