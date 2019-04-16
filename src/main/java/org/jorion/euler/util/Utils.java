@@ -87,7 +87,14 @@ public class Utils {
 		if (delta >= 10) {
 			String millisec = String.format("%8d ms", delta);
 			time = millisec;
+			delta /= 1000;
 		}
+		if (delta >= 10) {
+			String millisec = String.format("%8d s", delta);
+			time = millisec;
+			delta /= 1000;
+		}
+
 		// System.out.println(msg + " - Result: " + res + " - time: " + time);
 		LOG.info(msg + " - Result: " + res + " - time: " + time);
 	}
