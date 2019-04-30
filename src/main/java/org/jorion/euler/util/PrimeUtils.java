@@ -1,7 +1,9 @@
 package org.jorion.euler.util;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Set of utility methods related to prime numbers. Use {@link MathUtils}.
@@ -100,7 +102,7 @@ public class PrimeUtils
         }
 
         // mark non-primes <= n using Sieve of Eratosthenes
-        for (int factor = 3; factor * factor <= n; factor++) {
+        for (int factor = 3; factor * factor <= n; factor += 2) {
 
             // if factor is prime, then mark multiples of factor as nonprime
             // suffices to consider mutiples factor, factor+1, ..., n/factor
@@ -111,6 +113,18 @@ public class PrimeUtils
             }
         }
         return isPrimes;
+    }
+
+    public static Set<Integer> isPrimeSoEAsSet(int n)
+    {
+        boolean[] primes = isPrimeSoE(n);
+        Set<Integer> set = new HashSet<Integer>();
+        for (int i = 0; i < primes.length; i++) {
+            if (primes[i]) {
+                set.add(i);
+            }
+        }
+        return set;
     }
 
     /**
