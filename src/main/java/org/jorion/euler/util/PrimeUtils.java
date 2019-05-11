@@ -162,6 +162,11 @@ public class PrimeUtils
     {
         boolean stopPrime = false;
         Map<Integer, Integer> map = new HashMap<>();
+        if (primes.length > n && primes[n]) {
+            map.put(n, 1);
+            return map;
+        }
+
         int div = 2;
         while (n > 1) {
             int count = 0;
