@@ -74,9 +74,17 @@ public class Euler345
         Utils.start();
         res = calc1(n);
         delta = Utils.stop();
-        Utils.print("Algorithm ", res, delta);
+        Utils.print("MyAlgorithm     ", res, delta);
+
+        Utils.start();
+        res = calc2(n);
+        delta = Utils.stop();
+        Utils.print("From Euler site ", res, delta);
     }
 
+    /**
+     * My own algorithm.
+     */
     private static long calc1(int n)
     {
         Set<Cell> set = new TreeSet<>();
@@ -155,6 +163,24 @@ public class Euler345
         // System.out.println("count: " + count);
 
         return max;
+    }
+
+    /**
+     * Algorithm from Project Euler forum.
+     */
+    private static long calc2(int n)
+    {
+        int[][] f = new int[n + 1][1 << n];
+        for (int i = 0; i < n; ++i) {
+            for (int b = 0; b < (1 << n); ++b) {
+                for (int j = 0; j < n; ++j) {
+                    if (((b >> j) & 1) == 0) {
+                        f[i + 1][b | (1 << j)] = Math.max(f[i + 1][b | (1 << j)], f[i][b] + M[i][j]);
+                    }
+                }
+            }
+        }
+        return f[n][(1 << n) - 1];
     }
 
     static class Cell implements Comparable<Cell>
