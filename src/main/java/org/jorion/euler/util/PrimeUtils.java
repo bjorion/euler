@@ -158,7 +158,7 @@ public class PrimeUtils
      * @param primes an array of boolean, value of index 'n' is true if 'n' is a prime
      * @return A map with key = prime factor and value = number of occurrences (>= 1)
      */
-    public static Map<Integer, Integer> findPrimeFactors(int n, boolean[] primes)
+    public static Map<Integer, Integer> findPrimeFactors(int n, final boolean[] primes)
     {
         boolean stopPrime = false;
         Map<Integer, Integer> map = new HashMap<>();
@@ -193,6 +193,29 @@ public class PrimeUtils
             }
         }
         return map;
+    }
+
+    /**
+     * Compute Euler's phi function.
+     *
+     * @param n an integer
+     * @param primes an array of boolean, value of index 'n' is true if 'n' is a prime
+     * @return phi(n)
+     * @see https://en.wikipedia.org/wiki/Euler%27s_totient_function
+     */
+    public static int phi(int n, final boolean[] primes)
+    {
+        Map<Integer, Integer> map = findPrimeFactors(n, primes);
+        int product = 1;
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            int prime = entry.getKey();
+            int factor = entry.getValue();
+            if (factor > 1) {
+                product *= Math.pow(prime, factor - 1);
+            }
+            product *= (prime - 1);
+        }
+        return product;
     }
 
 }

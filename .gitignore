@@ -20,3 +20,6 @@
 .project
 .settings/
 target/
+
+# tmp
+**/Euler700.java

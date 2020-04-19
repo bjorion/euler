@@ -73,4 +73,13 @@ public class PrimeUtilsTest
         assertTrue(map.get(97).equals(1));
     }
 
+    @Test
+    public void testPhi()
+    {
+        boolean[] primes = PrimeUtils.isPrimeSoE(100_000);
+        assertEquals(79180, PrimeUtils.phi(87109, primes));
+        assertEquals(7918, PrimeUtils.phi(7919, primes));
+        assertEquals(8313928, PrimeUtils.phi(8319823, primes));
+    }
+
 }
