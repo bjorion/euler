@@ -205,6 +205,11 @@ public class PrimeUtils
      */
     public static int phi(int n, final boolean[] primes)
     {
+        // phi(n) = n - 1 if n is prime
+        if (primes[n]) {
+            return n - 1;
+        }
+
         Map<Integer, Integer> map = findPrimeFactors(n, primes);
         int product = 1;
         for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
