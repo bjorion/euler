@@ -1,20 +1,20 @@
 package org.jorion.euler.problem;
 
+import static org.jorion.euler.util.WordUtils.ROM_DIGITS;
+import static org.jorion.euler.util.WordUtils.ROM_LETTERS;
+
 import java.util.List;
 
 import org.jorion.euler.util.Utils;
 import org.jorion.euler.util.WordUtils;
 
-import static org.jorion.euler.util.WordUtils.ROM_LETTERS;
-import static org.jorion.euler.util.WordUtils.ROM_DIGITS;
-
 /**
- * sFor a number written in Roman numerals to be considered valid there are basic rules which must be followed. Even
+ * For a number written in Roman numerals to be considered valid there are basic rules which must be followed. Even
  * though the rules allow some numbers to be expressed in more than one way there is always a "best" way of writing a
  * particular number.
  * <p>
  * For example, it would appear that there are at least six ways of writing the number sixteen:
- * 
+ *
  * <pre>
  * IIIIIIIIIIIIIIII
  * VIIIIIIIIIII
@@ -23,7 +23,7 @@ import static org.jorion.euler.util.WordUtils.ROM_DIGITS;
  * VVVI
  * XVI
  * </pre>
- * 
+ *
  * However, according to the rules only XIIIIII and XVI are valid, and the last example is considered to be the most
  * efficient, as it uses the least number of numerals.
  * <p>

@@ -36,7 +36,14 @@ public class MathUtilsTest
     {
         BigInteger a = new BigInteger("252");
         BigInteger b = new BigInteger("105");
-        assertEquals(21 , MathUtils.gcd(a, b).intValue());
+        assertEquals(21, MathUtils.gcd(a, b).intValue());
+    }
+
+    @Test
+    public void testLCM()
+    {
+        assertEquals(105L, MathUtils.lcm(15L, 21L));
+        assertEquals(105L, MathUtils.lcm(21L, 15L));
     }
 
     @Test
@@ -50,7 +57,7 @@ public class MathUtilsTest
         assertEquals(1, res[0]);
         assertEquals(3, res[1]);
     }
-    
+
     @Test
     public void testSimplifyBI()
     {
@@ -68,7 +75,7 @@ public class MathUtilsTest
         assertEquals(11, res[0]);
         assertEquals(10, res[1]);
     }
-    
+
     @Test
     public void testAddFractionBI()
     {

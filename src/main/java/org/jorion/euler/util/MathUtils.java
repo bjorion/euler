@@ -49,7 +49,7 @@ public class MathUtils
     }
 
     /**
-     * Find the Greatest Common Divisor (gcd) between two integers.
+     * Find the Greatest Common Divisor (GCD = PGCD) between two integers.
      *
      * @param a the first integer
      * @param b the second integer
@@ -87,6 +87,25 @@ public class MathUtils
             b = rem;
         }
         return a;
+    }
+
+    /**
+     * Find the Lowest Common Multiple (LCM = PPCM) between two integers.
+     *
+     * @param a the first integer
+     * @param b the second integer
+     * @return the lcm between a and b
+     * @see https://en.wikipedia.org/wiki/Least_common_multiple
+     */
+    public static long lcm(long a, long b)
+    {
+        long m = a * b;
+        if (m < 0) {
+            throw new IllegalStateException("a*b is larger than Long.MAX_VALUE");
+        }
+        long gcd = gcd(a, b);
+        long lcm = m / gcd;
+        return lcm;
     }
 
     /**
