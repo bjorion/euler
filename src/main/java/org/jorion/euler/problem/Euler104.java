@@ -45,7 +45,7 @@ public class Euler104
      */
     private static long calc1(int max)
     {
-        final long min = 100_000_000L;
+        final long min = 123_456_789L;
         final long ten06 = 1_000_000L;
         final long ten09 = 1_000_000_000L;
         final long ten15 = 1_000_000_000_000_000L;
@@ -74,7 +74,7 @@ public class Euler104
             }
 
             // check last digits
-            if (f2 > min && MathUtils.isPandigital((int) f2)) {
+            if (f2 >= min && MathUtils.isPandigital((int) f2)) {
                 // System.out.println(String.format("%s => f: %s", count, f2));
             }
             else {
@@ -84,7 +84,7 @@ public class Euler104
             // check first digits
             // g2 <= 10**15; temp <= 10**(15-6) = 10**9
             long tmp = g2 / ten06;
-            if (tmp > min && MathUtils.isPandigital((int) tmp)) {
+            if (tmp >= min && MathUtils.isPandigital((int) tmp)) {
                 // System.out.println(String.format("%s => g: %s", count, g));
             }
             else {
@@ -116,7 +116,6 @@ public class Euler104
             f2 = f;
             if (isPandigital(f.toPlainString(), false)) {
                 System.out.println("last  => " + count);
-                done++;
                 done++;
             }
             if (isPandigital(f.toPlainString(), true)) {
