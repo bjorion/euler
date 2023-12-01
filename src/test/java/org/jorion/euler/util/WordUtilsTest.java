@@ -1,20 +1,16 @@
 package org.jorion.euler.util;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Unit test for {@link WordUtils}.
  */
-public class WordUtilsTest
-{
-    // --- Methods ---
+public class WordUtilsTest {
+
     @Test
-    public void testReverse()
-    {
+    public void testReverse() {
         assertEquals(1, WordUtils.reverse(1));
         assertEquals(11, WordUtils.reverse(11));
         assertEquals(12345, WordUtils.reverse(54321));
@@ -22,8 +18,7 @@ public class WordUtilsTest
     }
 
     @Test
-    public void testIsPalindromicStr()
-    {
+    public void testIsPalindromicStr() {
         assertTrue(WordUtils.isPalindromicStr(1));
         assertTrue(WordUtils.isPalindromicStr(11));
         assertFalse(WordUtils.isPalindromicStr(12));
@@ -32,8 +27,7 @@ public class WordUtilsTest
     }
 
     @Test
-    public void testIsPalindromic2()
-    {
+    public void testIsPalindromic2() {
         assertTrue(WordUtils.isPalindromic(1));
         assertTrue(WordUtils.isPalindromic(11));
         assertFalse(WordUtils.isPalindromic(12));
@@ -42,15 +36,14 @@ public class WordUtilsTest
     }
 
     @Test
-    public void testIsPalindromicFast()
-    {
+    public void testIsPalindromicFast() {
         final int len = 1_000_000;
         final int max = 100_000;
 
         // generate sample data
         int[] numbers = new int[len];
         for (int i = 0; i < len; i++) {
-            numbers[i] = (int) Math.random() * max;
+            numbers[i] = (int) (Math.random() * max);
         }
 
         long delta;
@@ -72,8 +65,7 @@ public class WordUtilsTest
     }
 
     @Test
-    public void testToRoman()
-    {   
+    public void testToRoman() {
         assertEquals("XVIII", WordUtils.toRoman(18));
         assertEquals("XXXIX", WordUtils.toRoman(39));
         assertEquals("XLIX", WordUtils.toRoman(49));
@@ -87,14 +79,14 @@ public class WordUtilsTest
         assertEquals("MCML", WordUtils.toRoman(1950));
     }
 
-  	@Test
-  	public void testIsPermutation() {
+    @Test
+    public void testIsPermutation() {
 
-  		assertFalse(WordUtils.isPermutation("", "aa"));
-  		assertFalse(WordUtils.isPermutation("a", "aa"));
-  		assertFalse(WordUtils.isPermutation("abcdef", "abcdeg"));
-  		assertTrue(WordUtils.isPermutation("abcdef", "abcdef"));
-  		assertTrue(WordUtils.isPermutation("abcdef", "fedcba"));
-  		assertTrue(WordUtils.isPermutation("56623104", "66430125"));
-  	}
- }
+        assertFalse(WordUtils.isPermutation("", "aa"));
+        assertFalse(WordUtils.isPermutation("a", "aa"));
+        assertFalse(WordUtils.isPermutation("abcdef", "abcdeg"));
+        assertTrue(WordUtils.isPermutation("abcdef", "abcdef"));
+        assertTrue(WordUtils.isPermutation("abcdef", "fedcba"));
+        assertTrue(WordUtils.isPermutation("56623104", "66430125"));
+    }
+}

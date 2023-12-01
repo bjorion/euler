@@ -1,22 +1,17 @@
 package org.jorion.euler.util;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Unit test for {@link PrimeUtils}.
  */
-public class PrimeUtilsTest
-{
-    // --- Methods ---
+public class PrimeUtilsTest {
     @Test
-    public void testIsPrime()
-    {
+    public void testIsPrime() {
         assertFalse(PrimeUtils.isPrime(-1));
         assertFalse(PrimeUtils.isPrime(0));
         assertFalse(PrimeUtils.isPrime(1));
@@ -32,8 +27,7 @@ public class PrimeUtilsTest
     }
 
     @Test
-    public void testIsPrime6()
-    {
+    public void testIsPrime6() {
         assertFalse(PrimeUtils.isPrime6(-1));
         assertFalse(PrimeUtils.isPrime6(0));
         assertFalse(PrimeUtils.isPrime6(1));
@@ -49,10 +43,9 @@ public class PrimeUtilsTest
     }
 
     @Test
-    public void testIsPrimeSoE()
-    {
+    public void testIsPrimeSoE() {
         boolean[] res = PrimeUtils.isPrimeSoE(10);
-        boolean[] primes = new boolean[] { false, false, true, true, false, true, false, true, false, false, false };
+        boolean[] primes = new boolean[]{false, false, true, true, false, true, false, true, false, false, false};
         assertEquals(primes.length, res.length);
         for (int i = 0; i < res.length; i++) {
             assertEquals(primes[i], res[i]);
@@ -60,22 +53,20 @@ public class PrimeUtilsTest
     }
 
     @Test
-    public void testFindPrimeFactors()
-    {
+    public void testFindPrimeFactors() {
         // {2=2, 3=1, 5=1}
         Map<Integer, Integer> map = PrimeUtils.findPrimeFactors(60);
-        assertTrue(map.get(2).equals(2));
-        assertTrue(map.get(3).equals(1));
-        assertTrue(map.get(5).equals(1));
+        assertEquals(2, (int) map.get(2));
+        assertEquals(1, (int) map.get(3));
+        assertEquals(1, (int) map.get(5));
         assertFalse(map.containsKey(1));
 
         map = PrimeUtils.findPrimeFactors(97);
-        assertTrue(map.get(97).equals(1));
+        assertEquals(1, (int) map.get(97));
     }
 
     @Test
-    public void testPhi()
-    {
+    public void testPhi() {
         boolean[] primes = PrimeUtils.isPrimeSoE(100_000);
         assertEquals(79180, PrimeUtils.phi(87109, primes));
         assertEquals(7918, PrimeUtils.phi(7919, primes));

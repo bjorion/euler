@@ -8,11 +8,10 @@ import java.util.Set;
 /**
  * Set of utility methods related to prime numbers. Use {@link MathUtils}.
  */
-public class PrimeUtils
-{
-    // --- Methods ---
-    static void wakeUp()
-    {}
+public class PrimeUtils {
+
+    static void wakeUp() {
+    }
 
     /**
      * Find if the given number is prime. We test all the odd numbers as divisors.
@@ -20,8 +19,7 @@ public class PrimeUtils
      * @param n the value to test
      * @return True if the given value is prime, false otherwise
      */
-    public static boolean isPrime(long n)
-    {
+    public static boolean isPrime(long n) {
         if (n == 2 || n == 3) {
             return true;
         }
@@ -52,8 +50,7 @@ public class PrimeUtils
      * @param n the value to test
      * @return True if the given value is prime, false otherwise
      */
-    public static boolean isPrime6(long n)
-    {
+    public static boolean isPrime6(long n) {
         if (n == 2 || n == 3) {
             return true;
         }
@@ -76,8 +73,7 @@ public class PrimeUtils
                         done = true;
                         break;
                     }
-                }
-                else {
+                } else {
                     done = true;
                 }
             }
@@ -91,8 +87,7 @@ public class PrimeUtils
      * @param n the upper limit for the sieve
      * @return an array of booleans, true for a prime
      */
-    public static boolean[] isPrimeSoE(int n)
-    {
+    public static boolean[] isPrimeSoE(int n) {
         // initially assume all integers are prime
         boolean[] isPrimes = new boolean[n + 1];
         isPrimes[2] = true;
@@ -115,10 +110,10 @@ public class PrimeUtils
         return isPrimes;
     }
 
-    public static Set<Integer> isPrimeSoEAsSet(int n)
-    {
+    @SuppressWarnings("unused")
+    public static Set<Integer> isPrimeSoEAsSet(int n) {
         boolean[] primes = isPrimeSoE(n);
-        Set<Integer> set = new HashSet<Integer>();
+        Set<Integer> set = new HashSet<>();
         for (int i = 0; i < primes.length; i++) {
             if (primes[i]) {
                 set.add(i);
@@ -133,8 +128,7 @@ public class PrimeUtils
      * @param n the integer
      * @return A map with key = prime factor and value = number of occurrences (>= 1)
      */
-    public static Map<Integer, Integer> findPrimeFactors(int n)
-    {
+    public static Map<Integer, Integer> findPrimeFactors(int n) {
         Map<Integer, Integer> map = new HashMap<>();
         int div = 2;
         while (n > 1) {
@@ -154,12 +148,11 @@ public class PrimeUtils
     /**
      * Alternative to {@link #findPrimeFactors(int)} when we already know the primes up to n.
      *
-     * @param n the integer
+     * @param n      the integer
      * @param primes an array of boolean, value of index 'n' is true if 'n' is a prime
      * @return A map with key = prime factor and value = number of occurrences (>= 1)
      */
-    public static Map<Integer, Integer> findPrimeFactors(int n, final boolean[] primes)
-    {
+    public static Map<Integer, Integer> findPrimeFactors(int n, final boolean[] primes) {
         boolean stopPrime = false;
         Map<Integer, Integer> map = new HashMap<>();
         if (primes.length > n && primes[n]) {
@@ -181,14 +174,12 @@ public class PrimeUtils
                 int next = Utils.nextTrue(primes, div);
                 if (next > 0) {
                     div = next;
-                }
-                else {
+                } else {
                     System.out.println("WARN: primes[] to small");
                     stopPrime = true;
                     div += 2;
                 }
-            }
-            else {
+            } else {
                 div += 2;
             }
         }
@@ -197,14 +188,13 @@ public class PrimeUtils
 
     /**
      * Compute Euler's phi function.
+     * cf. <a href="https://en.wikipedia.org/wiki/Euler%27s_totient_function">...</a>
      *
-     * @param n an integer
+     * @param n      an integer
      * @param primes an array of boolean, value of index 'n' is true if 'n' is a prime
      * @return phi(n)
-     * @see https://en.wikipedia.org/wiki/Euler%27s_totient_function
      */
-    public static int phi(int n, final boolean[] primes)
-    {
+    public static int phi(int n, final boolean[] primes) {
         // phi(n) = n - 1 if n is prime
         if (primes[n]) {
             return n - 1;
@@ -216,7 +206,7 @@ public class PrimeUtils
             int prime = entry.getKey();
             int factor = entry.getValue();
             if (factor > 1) {
-                product *= Math.pow(prime, factor - 1);
+                product *= (int) Math.pow(prime, factor - 1);
             }
             product *= (prime - 1);
         }

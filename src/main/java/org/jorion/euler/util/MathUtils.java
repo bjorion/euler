@@ -2,18 +2,17 @@ package org.jorion.euler.util;
 
 import java.math.BigInteger;
 
-public class MathUtils
-{
+public class MathUtils {
 
-    // --- Constants ---
     public static final BigInteger TWO = new BigInteger("2");
 
-    /** Powers of 10 from 0 to 9: M10[n] = 10 ^ n. */
-    static final int M10[] = new int[10];
+    /**
+     * Powers of 10 from 0 to 9: M10[n] = 10 ^ n.
+     */
+    static final int[] M10 = new int[10];
 
-    // --- Methods ---
-    protected static void wakeUp()
-    {}
+    protected static void wakeUp() {
+    }
 
     /**
      * Compute the sum of 1 to num.
@@ -21,8 +20,7 @@ public class MathUtils
      * @param num the number to use
      * @return the sum of 1 to num
      */
-    public static long sum(long num)
-    {
+    public static long sum(long num) {
         return num * (num + 1) / 2;
     }
 
@@ -33,8 +31,7 @@ public class MathUtils
      * @param n the large number
      * @return the computed value
      */
-    public static long cpn(int p, int n)
-    {
+    public static long cpn(int p, int n) {
         if (p == 0 || p == n) {
             return 1;
         }
@@ -50,14 +47,13 @@ public class MathUtils
 
     /**
      * Find the Greatest Common Divisor (GCD = PGCD) between two integers.
+     * cf. <a href="https://en.wikipedia.org/wiki/Euclidean_algorithm">...</a>
      *
      * @param a the first integer
      * @param b the second integer
      * @return the gcd between a and b
-     * @see https://en.wikipedia.org/wiki/Euclidean_algorithm
      */
-    public static int gcd(int a, int b)
-    {
+    public static int gcd(int a, int b) {
         int remainder;
         while (b != 0) {
             remainder = a % b;
@@ -67,8 +63,7 @@ public class MathUtils
         return a;
     }
 
-    public static long gcd(long a, long b)
-    {
+    public static long gcd(long a, long b) {
         long remainder;
         while (b != 0) {
             remainder = a % b;
@@ -78,8 +73,7 @@ public class MathUtils
         return a;
     }
 
-    public static BigInteger gcd(BigInteger a, BigInteger b)
-    {
+    public static BigInteger gcd(BigInteger a, BigInteger b) {
         BigInteger rem;
         while (!b.equals(BigInteger.ZERO)) {
             rem = a.mod(b);
@@ -91,21 +85,19 @@ public class MathUtils
 
     /**
      * Find the Lowest Common Multiple (LCM = PPCM) between two integers.
+     * cf. <a href="https://en.wikipedia.org/wiki/Least_common_multiple">...</a>
      *
      * @param a the first integer
      * @param b the second integer
      * @return the lcm between a and b
-     * @see https://en.wikipedia.org/wiki/Least_common_multiple
      */
-    public static long lcm(long a, long b)
-    {
+    public static long lcm(long a, long b) {
         long m = a * b;
         if (m < 0) {
             throw new IllegalStateException("a*b is larger than Long.MAX_VALUE");
         }
         long gcd = gcd(a, b);
-        long lcm = m / gcd;
-        return lcm;
+        return m / gcd;
     }
 
     /**
@@ -117,31 +109,25 @@ public class MathUtils
      * @param den the denumerator
      * @return the fraction simplified (first elem is num, second elem is denum)
      */
-    public static int[] simplify(int num, int den)
-    {
+    public static int[] simplify(int num, int den) {
         int gcd = gcd(num, den);
         num = num / gcd;
         den = den / gcd;
-        int[] res = { num, den };
-        return res;
+        return new int[]{num, den};
     }
 
-    public static long[] simplify(long num, long den)
-    {
+    public static long[] simplify(long num, long den) {
         long gcd = gcd(num, den);
         num = num / gcd;
         den = den / gcd;
-        long[] res = { num, den };
-        return res;
+        return new long[]{num, den};
     }
 
-    public static BigInteger[] simplify(BigInteger num, BigInteger den)
-    {
+    public static BigInteger[] simplify(BigInteger num, BigInteger den) {
         BigInteger gcd = gcd(num, den);
         num = num.divide(gcd);
         den = den.divide(gcd);
-        BigInteger[] res = { num, den };
-        return res;
+        return new BigInteger[]{num, den};
     }
 
     /**
@@ -151,20 +137,16 @@ public class MathUtils
      * @param f2 the second fraction
      * @return the sum of the fraction, simplified
      */
-    public static long[] addFractions(long[] f1, long[] f2)
-    {
+    public static long[] addFractions(long[] f1, long[] f2) {
         long num = f1[0] * f2[1] + f1[1] * f2[0];
         long den = f1[1] * f2[1];
-        long[] res = simplify(num, den);
-        return res;
+        return simplify(num, den);
     }
 
-    public static BigInteger[] addFractions(BigInteger[] f1, BigInteger[] f2)
-    {
+    public static BigInteger[] addFractions(BigInteger[] f1, BigInteger[] f2) {
         BigInteger num = f1[0].multiply(f2[1]).add(f1[1].multiply(f2[0]));
         BigInteger den = f1[1].multiply(f2[1]);
-        BigInteger[] res = simplify(num, den);
-        return res;
+        return simplify(num, den);
     }
 
     /**
@@ -177,8 +159,7 @@ public class MathUtils
      * @param n the number to test
      * @return true if n is pandigital.
      */
-    public static boolean isPandigital(int n)
-    {
+    public static boolean isPandigital(int n) {
         boolean pandigital = true;
         int[] digits = new int[10];
         digits[0] = 1;
@@ -189,8 +170,7 @@ public class MathUtils
             if (digits[mod] > 0) {
                 pandigital = false;
                 break;
-            }
-            else {
+            } else {
                 digits[mod] = 1;
                 count++;
             }
@@ -210,12 +190,11 @@ public class MathUtils
     /**
      * Return true if the given number is made of only unique digits.
      *
-     * @param n the integer to analyze
+     * @param n           the integer to analyze
      * @param zeroAllowed true if zero is accepted as a digit
      * @return true if each digit of n appears only once
      */
-    public static boolean isUnique(int n, boolean zeroAllowed)
-    {
+    public static boolean isUnique(int n, boolean zeroAllowed) {
         boolean unique = true;
         int[] digits = new int[10];
         if (!zeroAllowed) {
@@ -226,8 +205,7 @@ public class MathUtils
             if (digits[mod] > 0) {
                 unique = false;
                 break;
-            }
-            else {
+            } else {
                 digits[mod] = 1;
             }
             n /= 10;
@@ -245,19 +223,16 @@ public class MathUtils
     /**
      * Concatenate two positive integers (gte 0) without using strings.
      */
-    public static long concatenate(int a, int b)
-    {
+    public static long concatenate(int a, int b) {
         int nDigit = (b > 0) ? ((int) Math.log10(b) + 1) : 1;
-        long res = (long) M10[nDigit] * a + b;
-        return res;
+        return (long) M10[nDigit] * a + b;
     }
 
     /**
      * This method is much less performant than {@link #concatenate(int, int)}.
      */
     @Deprecated
-    public static long concatenateStr(int a, int b)
-    {
+    public static long concatenateStr(int a, int b) {
         String res = Integer.toString(a) + Integer.toString(b);
         return Long.parseLong(res);
     }
